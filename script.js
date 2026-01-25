@@ -1,205 +1,165 @@
 const questions = [
-  { text: "Você sente que precisa estar no controle?", type: 8 },
-  { text: "Você evita conflitos mesmo quando algo me incomoda.", type: 9 },
-  { text: "Você busca reconhecimento?", type: 3 },
-  { text: "Você se sente diferente dos outros?", type: 4 },
-  { text: "Você prefere observar a agir?", type: 5 },
-  { text: "Você se preocupa muito com segurança?", type: 6 },
-  { text: "Você foge da dor buscando prazer?", type: 7 },
-  { text: "Você é muito crítico consigo?", type: 1 },
-  { text: "Você coloca os outros antes de você?", type: 2 },
-  { text: "Quando criança, sentiu que precisava amadurecer rápido?", type: 1 },
-  { text: "Você teme ser abandonado?", type: 6 },
-  { text: "Você se fecha emocionalmente?", type: 5 },
-  { text: "Você sente que precisa ser forte sempre?", type: 8 },
-  { text: "Você sente vazio quando não é reconhecido?", type: 3 },
-  { text: "Você se sente inadequado com frequência?", type: 4 },
-  { text: "Você evita sentir tristeza profunda?", type: 7 },
-  { text: "Você engole raiva para manter paz?", type: 9 },
-  { text: "Você sente que só é amado quando ajuda?", type: 2 }
+  { text:"Costumo me cobrar excessivamente.", type:1 },
+  { text:"Coloco os outros acima de mim.", type:2 },
+  { text:"Tenho medo de fracassar.", type:3 },
+  { text:"Sinto que sou diferente.", type:4 },
+  { text:"Prefiro observar do que agir.", type:5 },
+  { text:"Busco segurança o tempo todo.", type:6 },
+  { text:"Evito sentimentos negativos.", type:7 },
+  { text:"Gosto de estar no controle.", type:8 },
+  { text:"Evito conflitos.", type:9 },
+
+  { text:"Tenho dificuldade em relaxar.", type:1 },
+  { text:"Tenho medo de ser rejeitado.", type:2 },
+  { text:"Minha imagem importa muito.", type:3 },
+  { text:"Sinto vazio existencial.", type:4 },
+  { text:"Isolo-me quando pressionado.", type:5 },
+  { text:"Desconfio de intenções.", type:6 },
+  { text:"Fico entediado fácil.", type:7 },
+  { text:"Detesto sentir-me fraco.", type:8 },
+  { text:"Adio decisões difíceis.", type:9 },
+
+  { text:"Prezo conforto e estabilidade.", instinct:"sp" },
+  { text:"Busco pertencimento em grupos.", instinct:"so" },
+  { text:"Busco intensidade emocional.", instinct:"sx" }
 ];
 
+let currentQuestion=0;
+let scores={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
+let instinctScores={sp:0,so:0,sx:0};
+
+function loadQuestion(){
+  document.getElementById("question-text").innerText=questions[currentQuestion].text;
+  document.getElementById("progress-bar").style.width=((currentQuestion/questions.length)*100)+"%";
+}
+
+function answer(val){
+  const q=questions[currentQuestion];
+  if(q.type) scores[q.type]+=val;
+  if(q.instinct) instinctScores[q.instinct]+=val;
+  currentQuestion++;
+  currentQuestion<questions.length?loadQuestion():showResult();
+}
+
+function detectWing(type){
+  const left=type==1?9:type-1;
+  const right=type==9?1:type+1;
+  return scores[left]>scores[right]?`${type}w${left}`:`${type}w${right}`;
+}
+
+function detectInstinct(){
+  return Object.keys(instinctScores)
+    .reduce((a,b)=>instinctScores[a]>instinctScores[b]?a:b);
+}
+
+function showResult(){
+  document.getElementById("question-card").classList.add("hidden");
+  document.getElementById("result-card").classList.remove("hidden");
+
+  const mainType=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
+  const wing=detectWing(mainType);
+  const instinct=detectInstinct();
+  const p=profiles[mainType];
+
+  document.getElementById("result-type").innerText=p.title;
+  document.getElementById("wing").innerText="Asa dominante: "+wing;
+  document.getElementById("instinct").innerText="Instinto dominante: "+instinct.toUpperCase();
+  document.getElementById("origin").innerText=p.origin;
+  document.getElementById("trauma").innerText=p.trauma;
+  document.getElementById("regression").innerText=p.regression;
+  document.getElementById("evolution").innerText=p.evolution;
+  document.getElementById("strengths").innerText=p.strengths;
+  document.getElementById("praticamente").innerText=p.praticamente;
+
+  document.getElementById("progress-bar").style.width="100%";
+}
+
+function generatePDF(){
+  alert("Relatório Premium + Mind Map será gerado aqui.");
+}
+
+loadQuestion();
+
 const profiles = {
-  1: {
-    name: "Perfeccionista",
-    core: "Medo de ser errado",
-    childhood: "Crítica excessiva",
-    pattern: "Autocrítica e rigidez",
-    strengths: ["Ética", "Disciplina", "Foco"],
-    weaknesses: ["Rigidez", "Culpa", "Raiva reprimida"],
-    regression: "Explosões emocionais",
-    evolution: "Aceitação",
-    virtue: "Serenidade",
-    exercise: "Errar de propósito em algo pequeno"
+  1:{
+    title:"Eneatipo 1 — O Reformador",
+    origin:"Cresceu sentindo que precisava ser perfeito para ser aceito.",
+    trauma:"Crítica constante ou exigência excessiva.",
+    regression:"Raiva reprimida, rigidez.",
+    evolution:"Aceitar imperfeições.",
+    strengths:"Disciplina, ética.",
+    praticamente:"PNL: flexibilizar padrões. Estoicismo: aceitar a realidade."
   },
-  2: {
-    name: "Ajudador",
-    core: "Medo de não ser amado",
-    childhood: "Amor condicionado",
-    pattern: "Autoabandono",
-    strengths: ["Empatia", "Cuidado"],
-    weaknesses: ["Carência", "Controle"],
-    regression: "Manipulação",
-    evolution: "Autovalor",
-    virtue: "Humildade",
-    exercise: "Dizer não uma vez hoje"
+  2:{
+    title:"Eneatipo 2 — O Ajudador",
+    origin:"Aprendeu que precisava ser útil para ser amado.",
+    trauma:"Carência emocional.",
+    regression:"Dependência afetiva.",
+    evolution:"Aprender a pedir.",
+    strengths:"Empatia.",
+    praticamente:"PNL: autoestima."
   },
-  3: {
-    name: "Executor",
-    core: "Medo de fracassar",
-    childhood: "Valorizado por performance",
-    pattern: "Máscaras",
-    strengths: ["Resultado", "Foco"],
-    weaknesses: ["Vazio", "Workaholic"],
-    regression: "Desconexão emocional",
-    evolution: "Autenticidade",
-    virtue: "Verdade",
-    exercise: "Mostrar vulnerabilidade"
+  3:{
+    title:"Eneatipo 3 — O Realizador",
+    origin:"Valorizado apenas por resultados.",
+    trauma:"Vergonha do fracasso.",
+    regression:"Workaholic.",
+    evolution:"Autenticidade.",
+    strengths:"Produtividade.",
+    praticamente:"Estoicismo: valor intrínseco."
   },
-  4: {
-    name: "Sensível",
-    core: "Medo de não ter identidade",
-    childhood: "Comparação",
-    pattern: "Drama",
-    strengths: ["Criatividade"],
-    weaknesses: ["Inveja", "Vitimismo"],
-    regression: "Isolamento",
-    evolution: "Gratidão",
-    virtue: "Equanimidade",
-    exercise: "Ação objetiva hoje"
+  4:{
+    title:"Eneatipo 4 — O Individualista",
+    origin:"Sentiu-se diferente e incompreendido.",
+    trauma:"Abandono emocional.",
+    regression:"Melancolia.",
+    evolution:"Presença.",
+    strengths:"Criatividade.",
+    praticamente:"PNL: reframe emocional."
   },
-  5: {
-    name: "Observador",
-    core: "Medo de ser incapaz",
-    childhood: "Invasão emocional",
-    pattern: "Isolamento",
-    strengths: ["Análise"],
-    weaknesses: ["Evitação"],
-    regression: "Fuga",
-    evolution: "Coragem",
-    virtue: "Confiança",
-    exercise: "Agir sem planejar demais"
+  5:{
+    title:"Eneatipo 5 — O Investigador",
+    origin:"Aprendeu a se isolar.",
+    trauma:"Invasão emocional.",
+    regression:"Apatia.",
+    evolution:"Engajamento.",
+    strengths:"Intelecto.",
+    praticamente:"Estoicismo: coragem prática."
   },
-  6: {
-    name: "Leal",
-    core: "Medo de ficar sem apoio",
-    childhood: "Instabilidade",
-    pattern: "Ansiedade",
-    strengths: ["Lealdade"],
-    weaknesses: ["Dúvida"],
-    regression: "Paralisia",
-    evolution: "Autoconfiança",
-    virtue: "Coragem",
-    exercise: "Decidir sem pedir opinião"
+  6:{
+    title:"Eneatipo 6 — O Leal",
+    origin:"Ambiente instável.",
+    trauma:"Insegurança.",
+    regression:"Ansiedade.",
+    evolution:"Confiança.",
+    strengths:"Lealdade.",
+    praticamente:"PNL: ancoragem."
   },
-  7: {
-    name: "Entusiasta",
-    core: "Medo da dor",
-    childhood: "Fuga emocional",
-    pattern: "Dispersão",
-    strengths: ["Otimismo"],
-    weaknesses: ["Procrastinação"],
-    regression: "Impulsividade",
-    evolution: "Presença",
-    virtue: "Temperança",
-    exercise: "Ficar no desconforto"
+  7:{
+    title:"Eneatipo 7 — O Entusiasta",
+    origin:"Fuga da dor.",
+    trauma:"Privação.",
+    regression:"Impulsividade.",
+    evolution:"Presença.",
+    strengths:"Otimismo.",
+    praticamente:"Estoicismo: aceitar desconforto."
   },
-  8: {
-    name: "Desafiador",
-    core: "Medo de ser controlado",
-    childhood: "Traição ou abuso",
-    pattern: "Dominação",
-    strengths: ["Força"],
-    weaknesses: ["Agressividade"],
-    regression: "Tirania",
-    evolution: "Proteção",
-    virtue: "Inocência",
-    exercise: "Pedir ajuda"
+  8:{
+    title:"Eneatipo 8 — O Desafiador",
+    origin:"Teve que se proteger cedo.",
+    trauma:"Vulnerabilidade.",
+    regression:"Agressividade.",
+    evolution:"Abertura emocional.",
+    strengths:"Liderança.",
+    praticamente:"PNL: vulnerabilidade."
   },
-  9: {
-    name: "Pacificador",
-    core: "Medo de conflito",
-    childhood: "Invisibilidade",
-    pattern: "Entorpecimento",
-    strengths: ["Mediação"],
-    weaknesses: ["Procrastinação"],
-    regression: "Inércia",
-    evolution: "Assertividade",
-    virtue: "Ação",
-    exercise: "Iniciar algo hoje"
+  9:{
+    title:"Eneatipo 9 — O Pacificador",
+    origin:"Conflitos familiares.",
+    trauma:"Negligência.",
+    regression:"Apatia.",
+    evolution:"Ação.",
+    strengths:"Harmonia.",
+    praticamente:"Estoicismo: responsabilidade."
   }
 };
-
-let currentQuestionIndex = 0;
-let scores = {};
-
-function showQuestion() {
-  const q = questions[currentQuestionIndex];
-  const questionText = document.getElementById("question-text");
-  
-  // Efeito de transição simples
-  questionText.style.opacity = 0;
-  setTimeout(() => {
-    questionText.innerText = q.text;
-    questionText.style.opacity = 1;
-  }, 200);
-
-  const progress = ((currentQuestionIndex) / questions.length) * 100;
-  document.getElementById("progress-bar").style.width = `${progress}%`;
-}
-
-function answer(val) {
-  const q = questions[currentQuestionIndex];
-  scores[q.type] = (scores[q.type] || 0) + val;
-
-  currentQuestionIndex++;
-
-  if (currentQuestionIndex < questions.length) {
-    showQuestion();
-  } else {
-    showResult();
-  }
-}
-
-function showResult() {
-  document.getElementById("quiz-screen").classList.add("hidden");
-  document.getElementById("result-box").classList.remove("hidden");
-
-  let topType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-  const p = profiles[topType];
-
-  // Preenchimento do Relatório com todos os campos do seu original
-  document.getElementById("profile-name").innerText = `Tipo ${topType} — ${p.name}`;
-  document.getElementById("strengths").innerText = p.strengths.join(", ");
-  document.getElementById("weaknesses").innerText = p.weaknesses.join(", ");
-  document.getElementById("childhood").innerText = p.childhood;
-  document.getElementById("regression").innerText = p.regression;
-  document.getElementById("evolution").innerText = p.evolution;
-  document.getElementById("exercise").innerText = p.exercise;
-
-  // Campos extras (Placeholder para PNL/Andragogia se quiser expandir)
-  if(document.getElementById("pnl")) document.getElementById("pnl").innerText = `Padrão Mental: ${p.pattern}`;
-  if(document.getElementById("estoicismo")) document.getElementById("estoicismo").innerText = `Virtude Estoica: ${p.virtue}`;
-
-  renderMindMap(p);
-}
-
-function renderMindMap(p) {
-  const svg = `
-  <svg width="100%" height="300" viewBox="0 0 600 400">
-    <circle cx="300" cy="200" r="60" fill="#d4af37" />
-    <text x="300" y="205" fill="#000" text-anchor="middle" font-weight="bold" font-family="Arial">${p.name}</text>
-    <line x1="300" y1="140" x2="300" y2="80" stroke="#d4af37" stroke-width="2" />
-    <text x="300" y="60" fill="#e5e7eb" text-anchor="middle" font-size="14">Raiz: ${p.childhood}</text>
-    <line x1="360" y1="200" x2="450" y2="200" stroke="#d4af37" stroke-width="2" />
-    <text x="460" y="205" fill="#e5e7eb" text-anchor="start" font-size="14">Padrão: ${p.pattern}</text>
-    <line x1="300" y1="260" x2="300" y2="320" stroke="#d4af37" stroke-width="2" />
-    <text x="300" y="350" fill="#e5e7eb" text-anchor="middle" font-size="14">Virtude: ${p.virtue}</text>
-  </svg>`;
-  document.getElementById("mindmap").innerHTML = svg;
-}
-
-// Inicialização
-document.addEventListener("DOMContentLoaded", showQuestion);
-
-
