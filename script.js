@@ -1,6 +1,6 @@
 const questions = [
   { text: "Você sente que precisa estar no controle?", type: 8 },
-  { text: "Você evita conflitos?", type: 9 },
+  { text: "Você evita conflitos mesmo quando algo me incomoda.", type: 9 },
   { text: "Você busca reconhecimento?", type: 3 },
   { text: "Você se sente diferente dos outros?", type: 4 },
   { text: "Você prefere observar a agir?", type: 5 },
@@ -8,8 +8,6 @@ const questions = [
   { text: "Você foge da dor buscando prazer?", type: 7 },
   { text: "Você é muito crítico consigo?", type: 1 },
   { text: "Você coloca os outros antes de você?", type: 2 },
-
-  // extras premium
   { text: "Quando criança, sentiu que precisava amadurecer rápido?", type: 1 },
   { text: "Você teme ser abandonado?", type: 6 },
   { text: "Você se fecha emocionalmente?", type: 5 },
@@ -132,75 +130,76 @@ const profiles = {
   }
 };
 
-const container = document.getElementById("questions");
+let currentQuestionIndex = 0;
+let scores = {};
 
-questions.forEach((q, i) => {
-  const div = document.createElement("div");
-  div.className = "question";
-  div.innerHTML = `
-    <p>${q.text}</p>
-    <label><input type="radio" name="q${i}" value="1"> Discordo</label>
-    <label><input type="radio" name="q${i}" value="2"> Neutro</label>
-    <label><input type="radio" name="q${i}" value="3"> Concordo</label>
-  `;
-  container.appendChild(div);
-});
+function showQuestion() {
+  const q = questions[currentQuestionIndex];
+  const questionText = document.getElementById("question-text");
+  
+  // Efeito de transição simples
+  questionText.style.opacity = 0;
+  setTimeout(() => {
+    questionText.innerText = q.text;
+    questionText.style.opacity = 1;
+  }, 200);
 
-document.getElementById("quizForm").addEventListener("submit", e => {
-  e.preventDefault();
-  let scores = {};
+  const progress = ((currentQuestionIndex) / questions.length) * 100;
+  document.getElementById("progress-bar").style.width = `${progress}%`;
+}
 
-  questions.forEach((q, i) => {
-    const val = document.querySelector(`input[name="q${i}"]:checked`);
-    if (val) {
-      scores[q.type] = (scores[q.type] || 0) + parseInt(val.value);
-    }
-  });
+function answer(val) {
+  const q = questions[currentQuestionIndex];
+  scores[q.type] = (scores[q.type] || 0) + val;
+
+  currentQuestionIndex++;
+
+  if (currentQuestionIndex < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById("quiz-screen").classList.add("hidden");
+  document.getElementById("result-box").classList.remove("hidden");
 
   let topType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
   const p = profiles[topType];
 
-  document.getElementById("profileTitle").innerText = `Seu Perfil: Tipo ${topType} – ${p.name}`;
-  document.getElementById("profileDescription").innerText = `Medo central: ${p.core}`;
+  // Preenchimento do Relatório com todos os campos do seu original
+  document.getElementById("profile-name").innerText = `Tipo ${topType} — ${p.name}`;
+  document.getElementById("strengths").innerText = p.strengths.join(", ");
+  document.getElementById("weaknesses").innerText = p.weaknesses.join(", ");
+  document.getElementById("childhood").innerText = p.childhood;
+  document.getElementById("regression").innerText = p.regression;
+  document.getElementById("evolution").innerText = p.evolution;
+  document.getElementById("exercise").innerText = p.exercise;
 
-  document.getElementById("details").innerHTML = `
-    <p><b>Ferida infantil:</b> ${p.childhood}</p>
-    <p><b>Padrão:</b> ${p.pattern}</p>
-    <p><b>Forças:</b> ${p.strengths.join(", ")}</p>
-    <p><b>Fraquezas:</b> ${p.weaknesses.join(", ")}</p>
-    <p><b>Virtude Estoica:</b> ${p.virtue}</p>
-    <p><b>Exercício PráticaMente:</b> ${p.exercise}</p>
-  `;
+  // Campos extras (Placeholder para PNL/Andragogia se quiser expandir)
+  if(document.getElementById("pnl")) document.getElementById("pnl").innerText = `Padrão Mental: ${p.pattern}`;
+  if(document.getElementById("estoicismo")) document.getElementById("estoicismo").innerText = `Virtude Estoica: ${p.virtue}`;
 
   renderMindMap(p);
-  document.getElementById("result").classList.remove("hidden");
-});
+}
 
 function renderMindMap(p) {
   const svg = `
-  <svg width="600" height="400">
-    <circle cx="300" cy="200" r="60" fill="#38bdf8"/>
-    <text x="300" y="200" fill="#000" text-anchor="middle" dy="5">${p.name}</text>
-
-    <text x="50" y="80" fill="#e5e7eb">Dor: ${p.childhood}</text>
-    <text x="400" y="80" fill="#e5e7eb">Padrão: ${p.pattern}</text>
-    <text x="50" y="320" fill="#e5e7eb">Forças: ${p.strengths[0]}</text>
-    <text x="400" y="320" fill="#e5e7eb">Fraquezas: ${p.weaknesses[0]}</text>
-  </svg>
-  `;
+  <svg width="100%" height="300" viewBox="0 0 600 400">
+    <circle cx="300" cy="200" r="60" fill="#d4af37" />
+    <text x="300" y="205" fill="#000" text-anchor="middle" font-weight="bold" font-family="Arial">${p.name}</text>
+    <line x1="300" y1="140" x2="300" y2="80" stroke="#d4af37" stroke-width="2" />
+    <text x="300" y="60" fill="#e5e7eb" text-anchor="middle" font-size="14">Raiz: ${p.childhood}</text>
+    <line x1="360" y1="200" x2="450" y2="200" stroke="#d4af37" stroke-width="2" />
+    <text x="460" y="205" fill="#e5e7eb" text-anchor="start" font-size="14">Padrão: ${p.pattern}</text>
+    <line x1="300" y1="260" x2="300" y2="320" stroke="#d4af37" stroke-width="2" />
+    <text x="300" y="350" fill="#e5e7eb" text-anchor="middle" font-size="14">Virtude: ${p.virtue}</text>
+  </svg>`;
   document.getElementById("mindmap").innerHTML = svg;
 }
 
-document.getElementById("unlockPdf").addEventListener("click", () => {
-  const fb = document.getElementById("feedback").value;
-  const cl = document.getElementById("clarity").value;
-  const rec = document.getElementById("recommend").value;
+// Inicialização
+document.addEventListener("DOMContentLoaded", showQuestion);
 
-  if (fb && cl && rec) {
-    document.getElementById("pdfBlock").classList.remove("hidden");
-    alert("PDF liberado! (simulação)");
-  } else {
-    alert("Responda tudo para liberar o PDF.");
-  }
-});
 
