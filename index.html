@@ -6,7 +6,7 @@
     <title>PRATICAMENTE | Diagnóstico Liderança Elite</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/phosphor-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
@@ -23,27 +23,67 @@
             <div class="brand-logo"><span class="silver-text">Prática</span><span class="gold-text">Mente</span></div>
             
             <div class="intro-content">
-                <h1 class="intro-title">Descubra sue <span class="gold">Perfil de personalidade </span></h1>
-                <p class="intro-desc">
-                    Este não é um teste comum. É um mapeamento de Engenharia Mental que cruza Eneagrama, PNL e Estoicismo para revelar seus padrões ocultos.
-                </p>
-
-                <div class="video-frame">
-                    <div class="video-placeholder">
-                        <i class="ph-play-circle" style="font-size: 4rem; color: var(--gold); margin-bottom: 15px; opacity: 0.8;"></i>
-                        <p><strong>Assista ao Vídeo de Instrução</strong></p>
-                        <small style="color: #888;">(30 Segundos)</small>
-                    </div>
+                <div class="method-badge"><i class="ph-scroll"></i> SABEDORIA MILENAR (2.500 ANOS)</div>
+                
+                <h1 class="intro-title">DESCUBRA A <span class="gold">RAIZ OCULTA</span> DOS SEUS COMPORTAMENTOS</h1>
+                
+                <div class="pain-box">
+                    <p class="pain-header">POR QUE FAZER ESTE DIAGNÓSTICO?</p>
+                    <p class="pain-desc">
+                        Você não explode, trava ou se sobrecarrega "do nada". Existe um <strong>padrão inconsciente</strong> rodando na sua mente agora.
+                        <br><br>
+                        Nós vamos identificar exatamente qual é a sua "ferida original" e entregar o <strong>antídoto prático</strong> para você liderar com o dobro de potência e metade do esforço.
+                    </p>
                 </div>
 
                 <div class="instruction-box">
-                    <p><i class="ph-check-circle gold"></i> Responda com honestidade e com calma .</p>
-                    <p><i class="ph-check-circle gold"></i> O resultado revela quem você <strong>é</strong>, não quem gostaria de ser.</p>
+                    <p class="instruction-title">⚠️ REGRAS PARA MÁXIMA PRECISÃO:</p>
+                    
+                    <div class="rule-item">
+                        <i class="ph-hourglass-medium gold"></i>
+                        <span><strong>Faça com Calma:</strong> Não existe certo ou errado. Respire e sinta a resposta.</span>
+                    </div>
+
+                    <div class="rule-item">
+                        <i class="ph-rewind-circle gold"></i>
+                        <span><strong>Volte no Tempo:</strong> Responda pensando em como você era entre os <strong>18 e 23 anos</strong>. É nessa fase que sua essência era pura, antes das "máscaras" da vida adulta.</span>
+                    </div>
+
+                    <div class="rule-item">
+                        <i class="ph-fingerprint gold"></i>
+                        <span><strong>Seja Real:</strong> Marque quem você <strong>É</strong> (nos bastidores), não quem você gostaria de ser no palco.</span>
+                    </div>
                 </div>
 
-                <button onclick="iniciarTeste()" class="btn-cta">
-                    INICIAR DIAGNÓSTICO
-                </button>
+                <form id="capture-form" action="https://formspree.io/f/xwvoklpq" method="POST">
+                    
+                    <div class="input-group">
+                        <i class="ph-user input-icon"></i>
+                        <input type="text" name="nome" id="input-name" class="input-glass" placeholder="Seu Primeiro Nome" required autocomplete="off">
+                    </div>
+
+                    <div class="input-group">
+                        <i class="ph-whatsapp-logo input-icon"></i>
+                        <input type="tel" name="whatsapp" id="input-phone" class="input-glass" placeholder="Seu WhatsApp (DDD+Núm)" required autocomplete="off">
+                    </div>
+
+                    <div class="input-group">
+                        <i class="ph-share-network input-icon"></i>
+                        <select name="origem" id="input-source" class="input-glass" required>
+                            <option value="" disabled selected>Onde nos conheceu?</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="WhatsApp">Grupo VIP</option>
+                            <option value="YouTube">YouTube</option>
+                            <option value="Indicação">Indicação</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-cta">
+                        INICIAR DIAGNÓSTICO
+                    </button>
+                </form>
+
+                <p class="secure-text"><i class="ph-shield-check"></i> Ambiente Criptografado & Seguro.</p>
             </div>
         </div>
 
@@ -65,9 +105,9 @@
                 <h2 style="margin-bottom: 20px; font-family: 'Cinzel', serif;">Processando Psique...</h2>
                 <div class="console-text">
                     <p>> Compilando Assinatura Neural...</p>
-                    <p>> Comparando vetores de comportamento...</p>
-                    <p>> Triangulando Instinto Oculto...</p>
-                    <p class="gold">> Gerando Protocolo de Acesso...</p>
+                    <p>> Mapeando feridas emocionais...</p>
+                    <p>> Identificando Válvula de Escape (Asa)...</p>
+                    <p class="gold">> Gerando Relatório Final...</p>
                 </div>
             </div>
         </div>
@@ -76,6 +116,9 @@
             <div class="text-center">
                 <div class="protocol-id">PROTOCOLO: <span id="protocol-code">#PM-0000</span></div>
                 <div class="result-badge">DIAGNÓSTICO CONCLUÍDO</div>
+                
+                <p class="user-greeting">RELATÓRIO DE <span id="user-name-result" class="gold">LÍDER</span></p>
+                
                 <h1 id="res-archetype" class="archetype-title">ARQUÉTIPO</h1>
                 
                 <div class="archetype-subtitle">
@@ -84,23 +127,21 @@
                             <span class="tag-label">TIPO DOMINANTE</span>
                             <span id="res-type" class="tag-value">X</span>
                         </div>
-                        <span class="tag-desc">Sua Essência</span>
+                        <div class="tag-explainer"><strong>SUA ESSÊNCIA</strong><br>Quem você é na raiz</div>
                     </div>
-
                     <div class="tag-group">
                         <div class="tag-box border-gold">
                             <span class="tag-label">ASA (WING)</span>
                             <span id="res-wing-calc" class="tag-value">Y</span>
                         </div>
-                        <span class="tag-desc">Sua Influência</span>
+                        <div class="tag-explainer gold"><strong>SUA FERRAMENTA</strong><br>Como você age</div>
                     </div>
-
                     <div class="tag-group">
                         <div class="tag-box">
                             <span class="tag-label">INSTINTO</span>
                             <span id="res-subtype" class="tag-value">Z</span>
                         </div>
-                        <span class="tag-desc">Seu Foco</span>
+                        <div class="tag-explainer"><strong>SEU FOCO</strong><br>Onde gasta energia</div>
                     </div>
                 </div>
             </div>
@@ -109,13 +150,20 @@
                 <canvas id="radarChart"></canvas>
             </div>
 
-            <div class="stat-group">
-                <div class="stat-header"><span>Vício Emocional (<span id="res-vice">...</span>)</span><span class="gold">ALERTA</span></div>
-                <div class="bar-bg"><div id="bar-vice" class="bar-actual bg-red" style="width: 0%"></div></div>
-            </div>
-            <div class="stat-group" style="margin-bottom: 30px;">
-                <div class="stat-header"><span>Potencial de Liderança</span><span>ALTA PERFORMANCE</span></div>
-                <div class="bar-bg"><div id="bar-potential" class="bar-actual bg-gold" style="width: 0%"></div></div>
+            <div class="skills-section">
+                <h3 class="section-title"><i class="ph-sliders-horizontal"></i> MATRIZ DE COMPETÊNCIAS</h3>
+                <div class="skill-row">
+                    <div class="skill-info"><span>Influência & Persuasão</span><span id="score-infl">0%</span></div>
+                    <div class="skill-bar-bg"><div id="bar-infl" class="skill-bar-fill gold-fill"></div></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-info"><span>Resiliência Emocional</span><span id="score-res">0%</span></div>
+                    <div class="skill-bar-bg"><div id="bar-res" class="skill-bar-fill blue-fill"></div></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-info"><span>Visão Estratégica</span><span id="score-est">0%</span></div>
+                    <div class="skill-bar-bg"><div id="bar-est" class="skill-bar-fill green-fill"></div></div>
+                </div>
             </div>
 
             <div class="deep-card">
@@ -123,40 +171,34 @@
                 <p id="res-genesis">...</p>
             </div>
             <div class="deep-card border-red">
-                <h4><i class="ph-warning-octagon"></i> O Ponto Cego (Hoje)</h4>
+                <h4><i class="ph-warning-octagon"></i> O Motivo da Explosão (Vício)</h4>
                 <p id="res-behavior">...</p>
             </div>
             <div class="deep-card border-gold">
-                <h4><i class="ph-ladder"></i> O Desbloqueio (Futuro)</h4>
+                <h4><i class="ph-lightning"></i> O Remédio (Evolução)</h4>
                 <p id="res-evolution">...</p>
             </div>
 
-            <div class="social-proof-card">
-                <div class="avatars">
-                    <div class="avatar" style="background-image: url('https://i.pravatar.cc/100?img=11');"></div>
-                    <div class="avatar" style="background-image: url('https://i.pravatar.cc/100?img=33');"></div>
-                    <div class="avatar" style="background-image: url('https://i.pravatar.cc/100?img=12');"></div>
-                    <div class="avatar-count">+1.2k</div>
-                </div>
-                <div class="proof-text">
-                    <strong>1.248 Líderes</strong> já usaram este método para acelerar sua evolução.
-                </div>
-            </div>
-
             <div class="cta-box">
-                <p class="cta-text">Baixe seu mapa completo no grupo oficial:</p>
+                <p class="cta-text">Receba o manual completo de operação da sua mente:</p>
                 <button onclick="baixarEEntrar()" class="btn-cta">
                     <i class="ph-whatsapp-logo" style="margin-right: 10px; font-size: 1.3rem; vertical-align: middle;"></i>
-                    LIBERAR MEU ACESSO AGORA
+                    ACESSAR MANUAL NO GRUPO
                 </button>
-                <p class="secure-text"><i class="ph-lock-key"></i> Ambiente Seguro.</p>
             </div>
         </div>
 
     </div>
 
+    <footer class="pro-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 PRÁTICAMENTE TREINAMENTOS.</p>
+            <p class="footer-legal">CNPJ: 00.000.000/0001-00</p>
+            <div class="footer-badges"><i class="ph-shield-check"></i> Site Seguro (SSL)</div>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
-
 
