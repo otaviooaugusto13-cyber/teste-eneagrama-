@@ -1,65 +1,51 @@
-<div class="container">
-  <img src="logo-praticamente.png" class="logo" alt="PráticaMente">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>PráticaMente — Diagnóstico Premium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-  <div id="quiz-screen">
-    <div id="header-text">
-      <h1>Teste de Eneagrama — Método PráticaMente</h1>
-      <p class="subtitle">Autoconhecimento prático para evolução real</p>
-    </div>
+<div class="app">
+  <img src="logo.png" class="logo">
+  <h1>Diagnóstico PráticaMente</h1>
+  <p class="subtitle">PNL • Eneagrama • Estoicismo • Andragogia</p>
 
-    <div id="progress">
-      <div id="progress-bar"></div>
-    </div>
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
 
-    <div id="question-box">
-      <p id="question-text"></p>
-      <div class="options">
-        <button class="answer-btn" onclick="answer(1)">Discordo totalmente</button>
-        <button class="answer-btn" onclick="answer(2)">Discordo</button>
-        <button class="answer-btn" onclick="answer(3)">Neutro</button>
-        <button class="answer-btn" onclick="answer(4)">Concordo</button>
-        <button class="answer-btn" onclick="answer(5)">Concordo totalmente</button>
-      </div>
+  <div id="question-card">
+    <h2 id="question-text"></h2>
+    <div class="options">
+      <button onclick="answer(1)">Discordo totalmente</button>
+      <button onclick="answer(2)">Discordo</button>
+      <button onclick="answer(3)">Neutro</button>
+      <button onclick="answer(4)">Concordo</button>
+      <button onclick="answer(5)">Concordo totalmente</button>
     </div>
   </div>
 
-  <div id="result-box" class="hidden">
-    <div class="report-header">
-      <span class="badge">RELATÓRIO GERADO</span>
-      <h2 id="profile-name"></h2>
-    </div>
+  <div id="result-card" class="hidden">
+    <h2>Seu Perfil PráticaMente</h2>
 
-    <div id="mindmap"></div>
+    <h3 id="result-type"></h3>
+    <p id="wing"></p>
+    <p id="instinct"></p>
 
-    <div class="card card-gold">
-      <h3>Suas Forças</h3>
-      <p id="strengths"></p>
-    </div>
+    <div class="box"><h4>🌱 Origem Emocional</h4><p id="origin"></p></div>
+    <div class="box"><h4>🧠 Trauma Nuclear</h4><p id="trauma"></p></div>
+    <div class="box"><h4>⚠️ Padrão de Regressão</h4><p id="regression"></p></div>
+    <div class="box"><h4>🚀 Caminho de Evolução</h4><p id="evolution"></p></div>
+    <div class="box"><h4>✨ Potenciais Elevados</h4><p id="strengths"></p></div>
+    <div class="box"><h4>🧩 Direção PráticaMente</h4><p id="praticamente"></p></div>
 
-    <div class="card card-red">
-      <h3>⚠️ Suas Fraquezas e Sinais de Alerta</h3>
-      <p id="weaknesses"></p>
-      <p id="regression" class="alert-text"></p>
-    </div>
-
-    <div class="card card-gold">
-      <h3>🔍 A Raiz: Trauma e Infância</h3>
-      <p id="childhood"></p>
-    </div>
-
-    <div class="card card-green">
-      <h3>📈 Sua Rota de Evolução</h3>
-      <p id="pnl"></p>
-      <p id="estoicismo"></p>
-      <p id="evolution"></p>
-      <hr style="border: 0.5px solid #333; margin: 10px 0;">
-      <p id="exercise" style="font-weight: bold; color: #d4af37;"></p>
-    </div>
-
-    <div class="cta-box">
-      <h3>⚡ Este foi apenas o diagnóstico. Agora é hora de curar.</h3>
-      <a href="SEU-LINK" class="cta-btn">QUERO ACELERAR MINHA EVOLUÇÃO AGORA</a>
-    </div>
+    <button class="download" onclick="generatePDF()">Baixar Relatório em PDF</button>
   </div>
 </div>
 
+<script src="script.js"></script>
+</body>
+</html>
