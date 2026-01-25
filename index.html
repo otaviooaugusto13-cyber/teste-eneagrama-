@@ -8,22 +8,52 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/phosphor-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="main-bg-texture"></div>
+    <canvas id="neural-bg"></canvas>
 
     <div class="container">
         
-        <div id="screen-quiz" class="glass-panel">
+        <div id="screen-intro" class="glass-panel">
+            <div class="brand-logo"><span class="silver-text">Prática</span><span class="gold-text">Mente</span></div>
+            
+            <div class="intro-content">
+                <h1 class="intro-title">Descubra sua <span class="gold">Assinatura de Liderança</span></h1>
+                <p class="intro-desc">
+                    Este não é um teste comum. É um mapeamento de Engenharia Mental que cruza Eneagrama, PNL e Estoicismo para revelar seus padrões ocultos.
+                </p>
+
+                <div class="video-frame">
+                    <div class="video-placeholder">
+                        <i class="ph-play-circle" style="font-size: 4rem; color: var(--gold); margin-bottom: 15px; opacity: 0.8;"></i>
+                        <p><strong>Assista ao Vídeo de Instrução</strong></p>
+                        <small style="color: #888;">(30 Segundos)</small>
+                    </div>
+                </div>
+
+                <div class="instruction-box">
+                    <p><i class="ph-check-circle gold"></i> Responda com honestidade brutal.</p>
+                    <p><i class="ph-check-circle gold"></i> O resultado revela quem você <strong>é</strong>, não quem gostaria de ser.</p>
+                </div>
+
+                <button onclick="iniciarTeste()" class="btn-cta">
+                    INICIAR DIAGNÓSTICO
+                </button>
+            </div>
+        </div>
+
+        <div id="screen-quiz" class="glass-panel hidden">
             <div class="brand-logo"><span class="silver-text">Prática</span><span class="gold-text">Mente</span></div>
             <div class="progress-track"><div id="progress-bar" class="progress-fill"></div></div>
 
             <div class="text-center">
-                <p class="step-counter">ANÁLISE <span id="q-number">01</span>/27</p>
-                <h2 id="q-text" class="question-text">Iniciando sistema...</h2>
+                <p class="step-counter">ANÁLISE <span id="q-number"></span></p>
+                <h2 id="q-text" class="question-text">Carregando...</h2>
             </div>
 
             <div id="options-container" class="options-list"></div>
@@ -34,63 +64,71 @@
                 <div class="spinner"></div>
                 <h2 style="margin-bottom: 20px; font-family: 'Cinzel', serif;">Processando Psique...</h2>
                 <div class="console-text">
-                    <p>> Mapeando feridas emocionais (Eneagrama)...</p>
-                    <p>> Identificando travas inconscientes (PNL)...</p>
-                    <p>> Calculando resiliência mental (Estoicismo)...</p>
-                    <p class="gold">> Gerando Plano de Aceleração (Andragogia)...</p>
+                    <p>> Compilando Assinatura Neural...</p>
+                    <p>> Comparando vetores de comportamento...</p>
+                    <p>> Triangulando Instinto Oculto...</p>
+                    <p class="gold">> Gerando Protocolo de Acesso...</p>
                 </div>
             </div>
         </div>
 
         <div id="screen-result" class="glass-panel hidden">
             <div class="text-center">
+                <div class="protocol-id">PROTOCOLO: <span id="protocol-code">#PM-0000</span></div>
                 <div class="result-badge">DIAGNÓSTICO CONCLUÍDO</div>
                 <h1 id="res-archetype" class="archetype-title">ARQUÉTIPO</h1>
                 
                 <div class="archetype-subtitle">
-                    <div class="tag-box">
-                        <span class="tag-label">TIPO</span>
-                        <span id="res-type" class="tag-value">X</span>
+                    <div class="tag-group">
+                        <div class="tag-box">
+                            <span class="tag-label">TIPO DOMINANTE</span>
+                            <span id="res-type" class="tag-value">X</span>
+                        </div>
+                        <span class="tag-desc">Sua Essência</span>
                     </div>
-                    <div class="tag-box border-gold">
-                        <span class="tag-label">ASA</span>
-                        <span id="res-wing-calc" class="tag-value">Y</span>
+
+                    <div class="tag-group">
+                        <div class="tag-box border-gold">
+                            <span class="tag-label">ASA (WING)</span>
+                            <span id="res-wing-calc" class="tag-value">Y</span>
+                        </div>
+                        <span class="tag-desc">Sua Influência</span>
                     </div>
-                    <div class="tag-box">
-                        <span class="tag-label">SUBTIPO</span>
-                        <span id="res-subtype" class="tag-value">Z</span>
+
+                    <div class="tag-group">
+                        <div class="tag-box">
+                            <span class="tag-label">INSTINTO</span>
+                            <span id="res-subtype" class="tag-value">Z</span>
+                        </div>
+                        <span class="tag-desc">Seu Foco</span>
                     </div>
                 </div>
             </div>
 
+            <div class="chart-container" style="position: relative; height:300px; width:100%; margin-bottom: 40px;">
+                <canvas id="radarChart"></canvas>
+            </div>
+
             <div class="stat-group">
-                <div class="stat-header"><span>Nível de Autossabotagem (Vício: <span id="res-vice">...</span>)</span><span class="red-glow">CRÍTICO</span></div>
+                <div class="stat-header"><span>Vício Emocional (<span id="res-vice">...</span>)</span><span class="gold">ALERTA</span></div>
                 <div class="bar-bg"><div id="bar-vice" class="bar-actual bg-red" style="width: 0%"></div></div>
             </div>
             <div class="stat-group" style="margin-bottom: 30px;">
-                <div class="stat-header"><span>Potencial Oculto de Liderança</span><span>ALTA PERFORMANCE</span></div>
+                <div class="stat-header"><span>Potencial de Liderança</span><span>ALTA PERFORMANCE</span></div>
                 <div class="bar-bg"><div id="bar-potential" class="bar-actual bg-gold" style="width: 0%"></div></div>
             </div>
 
             <div class="deep-card">
-                <h4><i class="ph-skull"></i> A Raiz da Sua Dor (Gênese)</h4>
+                <h4><i class="ph-fingerprint"></i> A Raiz (Gênese)</h4>
                 <p id="res-genesis">...</p>
             </div>
             <div class="deep-card border-red">
-                <h4><i class="ph-warning-octagon"></i> O Ciclo que te Prende (Hoje)</h4>
+                <h4><i class="ph-warning-octagon"></i> O Ponto Cego (Hoje)</h4>
                 <p id="res-behavior">...</p>
             </div>
-
-            <div class="solution-section">
-                <h3 class="solution-title">A ÚNICA FORMA DE ACELERAR</h3>
-                <p class="solution-text" id="res-evolution">...</p>
-                
-                <div class="pillars-grid">
-                    <div class="pillar-item"><i class="ph-compass"></i><span>Eneagrama</span></div>
-                    <div class="pillar-item"><i class="ph-brain"></i><span>PNL</span></div>
-                    <div class="pillar-item"><i class="ph-columns"></i><span>Estoicismo</span></div>
-                    <div class="pillar-item"><i class="ph-lightning"></i><span>Andragogia</span></div>
-                </div>
+            <div class="deep-card border-gold">
+                <h4><i class="ph-ladder"></i> O Desbloqueio (Futuro)</h4>
+                <p id="res-evolution">...</p>
             </div>
 
             <div class="social-proof-card">
@@ -101,19 +139,17 @@
                     <div class="avatar-count">+1.2k</div>
                 </div>
                 <div class="proof-text">
-                    <strong>1.248 Líderes</strong> já desbloquearam seu potencial com este método só este mês.
+                    <strong>1.248 Líderes</strong> já usaram este método para acelerar sua evolução.
                 </div>
             </div>
 
             <div class="cta-box">
-                <p class="cta-text">Pare de tentar sozinho. Tenha acesso ao mapa completo:</p>
-                
+                <p class="cta-text">Baixe seu mapa completo no grupo oficial:</p>
                 <button onclick="baixarEEntrar()" class="btn-cta">
                     <i class="ph-whatsapp-logo" style="margin-right: 10px; font-size: 1.3rem; vertical-align: middle;"></i>
-                    ACESSAR MEU PROTOCOLO AGORA
+                    LIBERAR MEU ACESSO AGORA
                 </button>
-                
-                <p class="secure-text"><i class="ph-lock-key"></i> Método PráticaMente® - Acesso Exclusivo</p>
+                <p class="secure-text"><i class="ph-lock-key"></i> Ambiente Seguro.</p>
             </div>
         </div>
 
@@ -122,4 +158,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
