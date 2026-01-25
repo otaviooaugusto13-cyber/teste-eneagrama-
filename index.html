@@ -1,113 +1,104 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Dossiê Premium — Método PráticaMente</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRATICAMENTE | Diagnóstico Liderança Elite</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;500;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/phosphor-icons"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
 
-<div class="app-container">
-  <header class="main-header">
-    <img src="logo.png" class="logo" alt="PráticaMente">
-    <div class="header-tag">ANÁLISE COMPORTAMENTAL AVANÇADA</div>
-  </header>
+    <div class="container">
+        
+        <div id="screen-quiz" class="glass-panel">
+            <div class="brand-logo">Prática<span class="gold">Mente</span></div>
+            <div class="progress-track"><div id="progress-bar" class="progress-fill"></div></div>
 
-  <div id="quiz-screen">
-    <div class="progress-container">
-      <div id="progress-bar"></div>
-      <span id="progress-text">Pergunta 1 de 27</span>
-    </div>
+            <div class="text-center">
+                <p class="step-counter">ANÁLISE <span id="q-number">01</span>/27</p>
+                <h2 id="q-text" class="question-text">Iniciando sistema...</h2>
+            </div>
 
-    <div id="question-card" class="fade-in">
-      <h2 id="question-text">Iniciando diagnóstico...</h2>
-      <div class="options-grid">
-        <button class="opt-btn" onclick="answer(1)">Discordo totalmente</button>
-        <button class="opt-btn" onclick="answer(2)">Discordo</button>
-        <button class="opt-btn" onclick="answer(3)">Neutro</button>
-        <button class="opt-btn" onclick="answer(4)">Concordo</button>
-        <button class="opt-btn" onclick="answer(5)">Concordo totalmente</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="loading-screen" class="hidden">
-    <div class="spinner"></div>
-    <h3>Cruzando dados: Eneagrama + PNL...</h3>
-    <p>Identificando sua rota de evolução baseada em Estoicismo e Andragogia.</p>
-  </div>
-
-  <div id="result-screen" class="hidden">
-    <div class="result-header">
-      <h1 id="res-title"></h1>
-      <div class="result-tags">
-        <span id="res-wing" class="badge-gold"></span>
-        <span id="res-instinct" class="badge-gold"></span>
-      </div>
-    </div>
-
-    <div class="dossie-grid">
-      <section class="card-glass">
-        <h3>🌱 Gênese e Trauma Nuclear</h3>
-        <p id="res-origin"></p>
-        <div class="alert-box"><strong>Alerta de Regressão:</strong> <span id="res-regression"></span></div>
-      </section>
-
-      <section class="card-glass tech-border">
-        <h3>🧠 Mapa Mental (PNL & Andragogia)</h3>
-        <p><strong>Padrão PNL:</strong> <span id="res-pnl"></span></p>
-        <p><strong>Aprendizado Adulto:</strong> <span id="res-andragogia"></span></p>
-      </section>
-
-      <section class="card-glass gold-border">
-        <h3>🚀 Rota de Saída (Estoicismo)</h3>
-        <p><strong>Virtude de Cura:</strong> <span id="res-virtue"></span></p>
-        <p id="res-evolution"></p>
-        <div class="exercise-box">
-          <strong>Exercício PráticaMente:</strong>
-          <p id="res-exercise"></p>
-        </div>
-      </section>
-    </div>
-
-    <div id="feedback-section" class="card-glass highlight-border">
-      <h3>📥 Liberar Relatório Completo (PDF)</h3>
-      <p>Para baixar seu dossiê detalhado, confirme sua identidade e deixe seu feedback:</p>
-      
-      <div class="feedback-form">
-        <div class="google-sim">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="16">
-          <span>Autenticado via Google: <strong>otavio***@gmail.com</strong></span>
+            <div id="options-container" class="options-list"></div>
         </div>
 
-        <label>O que você achou da precisão do diagnóstico?</label>
-        <select id="fb-rating">
-          <option value="5">⭐⭐⭐⭐⭐ - Extremamente Preciso</option>
-          <option value="4">⭐⭐⭐⭐ - Muito Bom</option>
-          <option value="3">⭐⭐⭐ - Regular</option>
-        </select>
-
-        <label>Seu depoimento sobre o teste:</label>
-        <textarea id="fb-text" placeholder="Como este resultado te ajudou hoje?"></textarea>
-
-        <label>Você recomendaria este teste para alguém?</label>
-        <div class="radio-group">
-          <label><input type="radio" name="recommend" value="sim"> Com certeza!</label>
-          <label><input type="radio" name="recommend" value="nao"> Não</label>
+        <div id="screen-loading" class="glass-panel hidden">
+            <div class="loader-wrapper">
+                <div class="spinner"></div>
+                <h2 style="margin-bottom: 20px;">Processando Psique...</h2>
+                <div class="console-text">
+                    <p>> Calculando Tríade Dominante...</p>
+                    <p>> Comparando Asas (Wings)...</p>
+                    <p>> Identificando Subtipo Instintivo...</p>
+                    <p class="gold">> Gerando Link de Download...</p>
+                </div>
+            </div>
         </div>
 
-        <button class="btn-glow" onclick="unlockPDF()">ENVIAR E BAIXAR DOSSIÊ PDF</button>
-      </div>
+        <div id="screen-result" class="glass-panel hidden">
+            <div class="text-center">
+                <div class="result-badge">DIAGNÓSTICO CONCLUÍDO</div>
+                <h1 id="res-archetype" class="archetype-title">ARQUÉTIPO</h1>
+                
+                <div class="archetype-subtitle">
+                    <div class="tag-box">
+                        <span class="tag-label">TIPO</span>
+                        <span id="res-type" class="tag-value">X</span>
+                    </div>
+                    <div class="tag-box border-gold">
+                        <span class="tag-label">ASA</span>
+                        <span id="res-wing-calc" class="tag-value">Y</span>
+                    </div>
+                    <div class="tag-box">
+                        <span class="tag-label">SUBTIPO</span>
+                        <span id="res-subtype" class="tag-value">Z</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-group">
+                <div class="stat-header"><span>Vício Emocional (<span id="res-vice">...</span>)</span><span class="gold">ALERTA</span></div>
+                <div class="bar-bg"><div id="bar-vice" class="bar-actual bg-red" style="width: 0%"></div></div>
+            </div>
+            <div class="stat-group" style="margin-bottom: 30px;">
+                <div class="stat-header"><span>Potencial de Liderança</span><span>ALTA PERFORMANCE</span></div>
+                <div class="bar-bg"><div id="bar-potential" class="bar-actual bg-gold" style="width: 0%"></div></div>
+            </div>
+
+            <div class="deep-card">
+                <h4><i class="ph-fingerprint"></i> A Raiz (Gênese)</h4>
+                <p id="res-genesis">...</p>
+            </div>
+            <div class="deep-card border-red">
+                <h4><i class="ph-warning-octagon"></i> O Ponto Cego (Hoje)</h4>
+                <p id="res-behavior">...</p>
+            </div>
+            <div class="deep-card border-gold">
+                <h4><i class="ph-ladder"></i> O Desbloqueio (Futuro)</h4>
+                <p id="res-evolution">...</p>
+            </div>
+
+            <div class="cta-box">
+                <p class="cta-text">Baixe o PDF completo e entre no grupo VIP:</p>
+                <input type="email" id="user-email" class="input-email" placeholder="Seu e-mail para liberação...">
+                
+                <button onclick="baixarEEntrar()" class="btn-cta">
+                    <i class="ph-download-simple" style="margin-right: 8px;"></i> 
+                    BAIXAR PDF E ACESSAR GRUPO
+                </button>
+                
+                <p class="secure-text"><i class="ph-lock-key"></i> Link direto e seguro.</p>
+            </div>
+        </div>
+
     </div>
 
-    <div class="cta-footer">
-      <h3>Deseja curar essas travas definitivamente?</h3>
-      <a href="SEU-LINK-AQUI" class="btn-main">QUERO ACELERAR MINHA EVOLUÇÃO AGORA</a>
-    </div>
-  </div>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+
