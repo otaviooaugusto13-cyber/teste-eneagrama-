@@ -2,66 +2,70 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>PráticaMente — Análise de Perfil</title>
+  <title>Teste de Eneagrama — Método PráticaMente</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="app">
-    <img src="logo.png" class="logo" alt="PráticaMente">
-    <h1>Análise de Perfil PráticaMente</h1>
-    <p class="subtitle">Autoconhecimento prático para evolução real</p>
+<div class="container">
+  <img src="logo-praticamente.png" class="logo" alt="PráticaMente">
 
-    <div id="progress-container">
+  <div id="quiz-screen">
+    <div id="header-text">
+      <h1>Teste de Eneagrama — Método PráticaMente</h1>
+      <p class="subtitle">Autoconhecimento prático para evolução real</p>
+    </div>
+
+    <div id="progress">
       <div id="progress-bar"></div>
     </div>
 
-    <div id="question-card">
-      <h2 id="question-text"></h2>
-
+    <div id="question-box">
+      <p id="question-text">Carregando pergunta...</p>
       <div class="options">
-        <button onclick="answer(1)">Discordo totalmente</button>
-        <button onclick="answer(2)">Discordo</button>
-        <button onclick="answer(3)">Neutro</button>
-        <button onclick="answer(4)">Concordo</button>
-        <button onclick="answer(5)">Concordo totalmente</button>
+        <button class="answer-btn" onclick="answer(1)">Discordo totalmente</button>
+        <button class="answer-btn" onclick="answer(2)">Discordo</button>
+        <button class="answer-btn" onclick="answer(3)">Neutro</button>
+        <button class="answer-btn" onclick="answer(4)">Concordo</button>
+        <button class="answer-btn" onclick="answer(5)">Concordo totalmente</button>
       </div>
-    </div>
-
-    <div id="result-card" class="hidden">
-      <h2>Seu Resultado PráticaMente</h2>
-      <h3 id="result-type"></h3>
-
-      <div class="box">
-        <h4>✨ Pontos Fortes</h4>
-        <p id="strengths"></p>
-      </div>
-
-      <div class="box">
-        <h4>⚠️ Pontos de Atenção</h4>
-        <p id="weaknesses"></p>
-      </div>
-
-      <div class="box">
-        <h4>🚀 Onde Você Pode Evoluir</h4>
-        <p id="evolution"></p>
-      </div>
-
-      <div class="box">
-        <h4>🧠 Direção PráticaMente  
-        (PNL + Eneagrama + Estoicismo)</h4>
-        <p id="praticamente"></p>
-      </div>
-
-      <button class="download" onclick="alert('PDF será gerado aqui')">
-        Baixar Relatório em PDF
-      </button>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <div id="result-box" class="hidden">
+    <div class="report-header">
+      <span class="badge">RELATÓRIO GERADO</span>
+      <h2 id="profile-name"></h2>
+    </div>
+
+    <div class="card card-gold">
+      <h3>Suas Forças e Fraquezas</h3>
+      <p id="strengths"></p>
+      <p id="weaknesses"></p>
+    </div>
+
+    <div class="card card-red">
+      <h3>🔍 A Raiz: Trauma e Infância</h3>
+      <p id="childhood"></p>
+    </div>
+
+    <div class="card card-gold">
+      <h3>📈 Sua Rota de Evolução</h3>
+      <p id="evolution-path"></p>
+      <p id="daily-exercise" style="font-weight: bold; color: #d4af37;"></p>
+    </div>
+
+    <div class="cta-box">
+      <h3>⚡ Este foi apenas o diagnóstico. Agora é hora de curar.</h3>
+      <a href="https://SEU-LINK-DO-CURSO-AQUI" target="_blank" class="cta-btn">
+        QUERO ACELERAR MINHA EVOLUÇÃO AGORA
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
-
 
