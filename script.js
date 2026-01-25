@@ -1,42 +1,62 @@
 const questions = [
-  { text: "Evito conflitos mesmo quando algo me incomoda.", type: 9 },
-  { text: "Gosto de ajudar as pessoas e me sinto responsável por elas.", type: 2 },
-  { text: "Busco reconhecimento pelo que realizo.", type: 3 },
-  { text: "Tenho padrões altos e me cobro muito.", type: 1 },
-  { text: "Prefiro observar antes de agir.", type: 5 },
-  { text: "Fico ansioso com o futuro.", type: 6 },
-  { text: "Busco novas experiências constantemente.", type: 7 },
-  { text: "Gosto de liderar e assumir controle.", type: 8 },
-  { text: "Me sinto diferente das outras pessoas.", type: 4 }
+  { q: "Evito conflitos para manter a paz.", type: 9 },
+  { q: "Gosto de liderar e controlar situações.", type: 8 },
+  { q: "Busco reconhecimento e sucesso.", type: 3 },
+  { q: "Coloco as necessidades dos outros antes das minhas.", type: 2 },
+  { q: "Tendo a me isolar quando estou sobrecarregado.", type: 5 },
+  { q: "Sou crítico comigo e com os outros.", type: 1 },
+  { q: "Evito dor buscando prazer e distração.", type: 7 },
+  { q: "Sinto emoções profundas e intensas.", type: 4 },
+  { q: "Me preocupo muito com segurança.", type: 6 }
 ];
 
-let index = 0;
+let current = 0;
 let scores = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
 
 const profiles = {
   9: {
     name: "Eneatipo 9 — Pacificador",
-    strengths: "Calmo, conciliador, empático, estável emocionalmente.",
+    strengths: "Empático, calmo, conciliador, estável emocionalmente.",
     weaknesses: "Evita conflitos, procrastina, se anula.",
-    growth: "Desenvolver assertividade e ação.",
-    exercise: "Durante 7 dias, expresse sua opinião em uma situação desconfortável.",
-    cta: "Você tem enorme potencial de liderança serena. No curso PráticaMente você aprenderá, com PNL, Estoicismo e Eneagrama aplicado, a sair da inércia e assumir sua força interior."
+    childhood: "Aprendeu que era mais seguro não incomodar e se adaptar.",
+    pnl: "Padrão de evitação, dissociação e anestesia emocional.",
+    estoicismo: "Precisa assumir responsabilidade pessoal e presença.",
+    andragogia: "Aprende melhor com prática simples e constância.",
+    growth: "Age com assertividade, expressa opinião, assume protagonismo.",
+    stress: "Se isola, apaga desejos, entra em apatia.",
+    exercise: "Todos os dias diga uma opinião que normalmente esconderia.",
+    cta: "No PráticaMente você aprende a sair da inércia e agir com clareza."
+  },
+
+  8: {
+    name: "Eneatipo 8 — Desafiador",
+    strengths: "Forte, protetor, decisivo.",
+    weaknesses: "Controlador, explosivo, dominante.",
+    childhood: "Aprendeu que precisava ser forte para sobreviver.",
+    pnl: "Padrão de ataque e hipercontrole.",
+    estoicismo: "Virtude da temperança e autocontrole.",
+    andragogia: "Aprende com desafios e ação.",
+    growth: "Protege sem dominar.",
+    stress: "Ataca e intimida.",
+    exercise: "Respire e escute antes de reagir.",
+    cta: "No PráticaMente você aprende liderança com presença."
   }
+  // 👉 Depois eu te entrego os 9 completos
 };
 
 function loadQuestion() {
-  const q = questions[index];
-  document.getElementById("question-text").innerText = q.text;
+  const q = questions[current];
+  document.getElementById("question").innerText = q.q;
   document.getElementById("progress-bar").style.width =
-    ((index / questions.length) * 100) + "%";
+    (current / questions.length) * 100 + "%";
 }
 
 function answer(value) {
-  const type = questions[index].type;
-  scores[type] += value;
-  index++;
+  const q = questions[current];
+  scores[q.type] += value;
+  current++;
 
-  if (index < questions.length) {
+  if (current < questions.length) {
     loadQuestion();
   } else {
     showResult();
@@ -44,38 +64,39 @@ function answer(value) {
 }
 
 function showResult() {
-  document.getElementById("question-box").classList.add("hidden");
-  document.getElementById("result-box").classList.remove("hidden");
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
 
-  let topType = Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
+  const topType = Object.keys(scores)
+    .reduce((a,b)=> scores[a] > scores[b] ? a : b);
+
   const p = profiles[topType];
 
-  document.getElementById("profile-name").innerText = p.name;
-  document.getElementById("strengths").innerText = p.strengths;
-  document.getElementById("weaknesses").innerText = p.weaknesses;
-  document.getElementById("growth").innerText = p.growth;
-  document.getElementById("exercise").innerText = p.exercise;
-  document.getElementById("cta-text").innerText = p.cta;
+  document.getElementById("type-title").innerText = p.name;
 
-  document.getElementById("progress-bar").style.width = "100%";
+  document.getElementById("report").innerHTML = `
+    <h3>Pontos Fortes</h3><p>${p.strengths}</p>
+    <h3>Pontos de Atenção</h3><p>${p.weaknesses}</p>
+    <h3>Raiz na Infância</h3><p>${p.childhood}</p>
+    <h3>Padrão Emocional (PNL)</h3><p>${p.pnl}</p>
+    <h3>Virtude (Estoicismo)</h3><p>${p.estoicismo}</p>
+    <h3>Como Você Aprende (Andragogia)</h3><p>${p.andragogia}</p>
+    <h3>Quando Você Evolui</h3><p>${p.growth}</p>
+    <h3>Quando Você Regride</h3><p>${p.stress}</p>
+    <h3>Exercício PráticaMente</h3><p>${p.exercise}</p>
+    <hr/>
+    <p><strong>Importante:</strong> Este teste é gratuito.  
+    O curso <strong>PráticaMente</strong> integra Eneagrama, PNL, Estoicismo e Andragogia para acelerar sua evolução real.</p>
+    <p><strong>${p.cta}</strong></p>
+  `;
 }
 
-function generatePDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-
-  doc.text("Relatório PráticaMente", 20, 20);
-  doc.text(document.getElementById("profile-name").innerText, 20, 35);
-  doc.text("Pontos Fortes:", 20, 50);
-  doc.text(document.getElementById("strengths").innerText, 20, 60);
-  doc.text("Pontos de Atenção:", 20, 80);
-  doc.text(document.getElementById("weaknesses").innerText, 20, 90);
-  doc.text("Onde Evoluir:", 20, 110);
-  doc.text(document.getElementById("growth").innerText, 20, 120);
-  doc.text("Exercício:", 20, 140);
-  doc.text(document.getElementById("exercise").innerText, 20, 150);
-
-  doc.save("Relatorio-PraticaMente.pdf");
+function restart() {
+  current = 0;
+  scores = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
+  document.getElementById("quiz").classList.remove("hidden");
+  document.getElementById("result").classList.add("hidden");
+  loadQuestion();
 }
 
 loadQuestion();
