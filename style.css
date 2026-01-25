@@ -1,0 +1,232 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 16px;
+  text-align: center;
+}
+
+.logo {
+  width: 120px;
+  margin: 10px auto 5px;
+  display: block;
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #d4af37;
+}
+
+/* Barra de progresso */
+#progress {
+  width: 100%;
+  background: #222;
+  border-radius: 10px;
+  margin: 15px 0 20px;
+  overflow: hidden;
+}
+
+#progress-bar {
+  height: 10px;
+  width: 0%;
+  background: linear-gradient(90deg, #bfa233, #ffd700);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* Pergunta */
+#question-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #ffffff;
+  min-height: 60px;
+}
+
+/* Botões */
+.options button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 14px 12px;
+  background: #111;
+  color: #ffffff;
+  border: 1px solid #d4af37;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.options button:hover {
+  background: #d4af37;
+  color: #000;
+}
+
+/* Resultado */
+#result-box h2 {
+  color: #d4af37;
+}
+
+#result-text {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.download-btn {
+  margin-top: 20px;
+  padding: 14px 18px;
+  background: linear-gradient(90deg, #bfa233, #ffd700);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.download-btn:hover {
+  opacity: 0.9;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Mobile fino */
+@media (max-width: 400px) {
+  h1 { font-size: 18px; }
+  #question-text { font-size: 16px; }
+  .options button { font-size: 14px; padding: 12px; }
+}
+
+#result-text p {
+  margin: 12px 0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+#result-text strong {
+  color: #d4af37;
+}
+* {
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #111 0%, #000 60%);
+  color: #fff;
+}
+
+.container {
+  max-width: 480px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.logo {
+  width: 120px;
+  margin: 10px auto 20px;
+}
+
+h1 {
+  color: #d4af37;
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+#progress {
+  width: 100%;
+  height: 10px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #d4af37, #f5d76e);
+}
+
+#question-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.options button {
+  width: 100%;
+  margin: 8px 0;
+  padding: 14px;
+  background: transparent;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.options button:hover {
+  background: #d4af37;
+  color: #000;
+}
+
+.hidden {
+  display: none;
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 14px;
+  padding: 15px;
+  margin: 15px 0;
+  text-align: left;
+}
+
+.card h3 {
+  color: #d4af37;
+  margin-bottom: 8px;
+}
+
+.highlight {
+  border: 2px solid #d4af37;
+  background: rgba(212,175,55,0.08);
+}
+
+.cta-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 14px 20px;
+  background: linear-gradient(90deg, #d4af37, #f5d76e);
+  color: #000;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.download-btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border: none;
+  background: #333;
+  color: #d4af37;
+  border-radius: 8px;
+}

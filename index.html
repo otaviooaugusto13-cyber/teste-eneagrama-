@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Teste de Eneagrama — Método PráticaMente</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <img src="logo-praticamente.png" class="logo" alt="PráticaMente">
+
+  <h1>Teste de Eneagrama — Método PráticaMente</h1>
+  <p class="subtitle">Autoconhecimento prático para evolução real</p>
+
+  <div id="progress">
+    <div id="progress-bar"></div>
+  </div>
+
+  <div id="question-box">
+    <p id="question-text"></p>
+
+    <div class="options">
+      <button onclick="answer(1)">Discordo totalmente</button>
+      <button onclick="answer(2)">Discordo</button>
+      <button onclick="answer(3)">Neutro</button>
+      <button onclick="answer(4)">Concordo</button>
+      <button onclick="answer(5)">Concordo totalmente</button>
+    </div>
+  </div>
+
+  <div id="result-box" class="hidden">
+
+    <h2>Seu Resultado PráticaMente</h2>
+    <p id="profile-name"></p>
+
+    <div class="card">
+      <h3>Seus Pontos Fortes</h3>
+      <p id="strengths"></p>
+    </div>
+
+    <div class="card">
+      <h3>Seus Pontos de Atenção</h3>
+      <p id="weaknesses"></p>
+    </div>
+
+    <div class="card">
+      <h3>Onde Você Pode Evoluir</h3>
+      <p id="growth"></p>
+    </div>
+
+    <div class="card">
+      <h3>Exercício PráticaMente</h3>
+      <p id="exercise"></p>
+    </div>
+
+    <div class="card highlight">
+      <h3>⚡ Acelere Sua Evolução</h3>
+      <p id="cta-text"></p>
+      <a href="https://SEU-LINK-DO-CURSO-AQUI" class="cta-btn">
+        Quero Evoluir com o Método PráticaMente
+      </a>
+    </div>
+
+    <button onclick="generatePDF()" class="download-btn">
+      Baixar meu relatório em PDF
+    </button>
+
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
