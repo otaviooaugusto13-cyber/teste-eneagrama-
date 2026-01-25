@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Teste de Eneagrama — Método PráticaMente</title>
+  <title>Análise de Perfil — Método PráticaMente</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,8 +12,10 @@
 
   <img src="logo-praticamente.png" class="logo" alt="PráticaMente">
 
-  <h1>Teste de Eneagrama — Método PráticaMente</h1>
-  <p class="subtitle">Autoconhecimento prático para evolução real</p>
+  <div id="header-text">
+    <h1>Análise de Perfil PráticaMente</h1>
+    <p class="subtitle">Descubra suas travas ocultas e sua rota de evolução.</p>
+  </div>
 
   <div id="progress">
     <div id="progress-bar"></div>
@@ -21,7 +23,6 @@
 
   <div id="question-box">
     <p id="question-text"></p>
-
     <div class="options">
       <button onclick="answer(1)">Discordo totalmente</button>
       <button onclick="answer(2)">Discordo</button>
@@ -31,48 +32,55 @@
     </div>
   </div>
 
-  <div id="result-box" class="hidden">
+  <div id="result-box" class="hidden fade-in">
+    <div class="report-header">
+      <span class="tag">RELATÓRIO GERADO</span>
+      <h2 id="profile-name"></h2>
+    </div>
 
-    <h2>Seu Resultado PráticaMente</h2>
-    <p id="profile-name"></p>
-
-    <div class="card">
-      <h3>Seus Pontos Fortes</h3>
+    <div class="card default-card">
+      <h3>Suas Forças e Fraquezas</h3>
       <p id="strengths"></p>
+      <p id="weaknesses" class="alert-text"></p>
     </div>
 
-    <div class="card">
-      <h3>Seus Pontos de Atenção</h3>
-      <p id="weaknesses"></p>
+    <div class="card deep-card">
+      <h3>🔍 A Raiz: Trauma e Infância</h3>
+      <p id="childhood"></p>
     </div>
 
-    <div class="card">
-      <h3>Onde Você Pode Evoluir</h3>
-      <p id="growth"></p>
+    <div class="card danger-card">
+      <h3>⚠️ Sinais de Regressão (Alerta)</h3>
+      <p id="regression"></p>
     </div>
 
-    <div class="card">
-      <h3>Exercício PráticaMente</h3>
+    <div class="card tech-card">
+      <h3>🧬 Seu Mapa Mental</h3>
+      <p id="pnl"></p>
+      <p id="andragogia"></p>
+    </div>
+
+    <div class="card success-card">
+      <h3>📈 Sua Rota de Evolução</h3>
+      <p id="estoicismo"></p>
+      <p id="evolution"></p>
+      <hr>
       <p id="exercise"></p>
     </div>
 
-    <div class="card highlight">
-      <h3>⚡ Acelere Sua Evolução</h3>
+    <div class="cta-box">
+      <h3>⚡ Este foi apenas o diagnóstico. Agora é hora de curar.</h3>
       <p id="cta-text"></p>
-      <a href="https://SEU-LINK-DO-CURSO-AQUI" class="cta-btn">
-        Quero Evoluir com o Método PráticaMente
+      <a href="https://SEU-LINK-DO-CURSO-AQUI" target="_blank" class="cta-btn">
+        QUERO ACELERAR MINHA EVOLUÇÃO AGORA
       </a>
+      <p class="scarcity">O Método PráticaMente une Eneagrama, PNL e Estoicismo na prática.</p>
     </div>
-
-    <button onclick="generatePDF()" class="download-btn">
-      Baixar meu relatório em PDF
-    </button>
 
   </div>
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="script.js"></script>
 
 </body>
