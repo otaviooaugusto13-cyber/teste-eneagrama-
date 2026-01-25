@@ -5,62 +5,62 @@
   <title>Dossiê Premium — Método PráticaMente</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-</head>
+  </head>
 <body>
 
-<div class="app-wrapper">
+<div class="app-container">
   <header class="main-header">
     <img src="logo.png" class="logo" alt="PráticaMente">
-    <div class="header-badge">ANÁLISE COMPORTAMENTAL AVANÇADA</div>
+    <div class="header-tag">ANÁLISE COMPORTAMENTAL AVANÇADA</div>
   </header>
 
-  <div id="quiz-container">
-    <div class="progress-section">
+  <div id="quiz-screen">
+    <div class="progress-container">
       <div id="progress-bar"></div>
       <span id="progress-text">Pergunta 1 de 27</span>
     </div>
 
     <div id="question-card" class="fade-in">
-      <h2 id="question-text">Carregando diagnóstico...</h2>
-      <div class="options-container">
-        <button class="answer-btn" onclick="answer(1)">Discordo totalmente</button>
-        <button class="answer-btn" onclick="answer(2)">Discordo</button>
-        <button class="answer-btn" onclick="answer(3)">Neutro</button>
-        <button class="answer-btn" onclick="answer(4)">Concordo</button>
-        <button class="answer-btn" onclick="answer(5)">Concordo totalmente</button>
+      <h2 id="question-text">Iniciando diagnóstico...</h2>
+      <div class="options-grid">
+        <button class="opt-btn" onclick="answer(1)">Discordo totalmente</button>
+        <button class="opt-btn" onclick="answer(2)">Discordo</button>
+        <button class="opt-btn" onclick="answer(3)">Neutro</button>
+        <button class="opt-btn" onclick="answer(4)">Concordo</button>
+        <button class="opt-btn" onclick="answer(5)">Concordo totalmente</button>
       </div>
     </div>
   </div>
 
   <div id="loading-screen" class="hidden">
-    <div class="loader"></div>
-    <h3>Cruzando dados de PNL e Eneagrama...</h3>
-    <p>Identificando travas nucleares e rotas de evolução.</p>
+    <div class="spinner"></div>
+    <h3>Cruzando dados: Eneagrama + PNL...</h3>
+    <p>Identificando sua rota de evolução baseada em Estoicismo e Andragogia.</p>
   </div>
 
   <div id="result-screen" class="hidden">
-    <div class="result-intro">
+    <div class="result-header">
       <h1 id="res-title"></h1>
-      <div class="tags">
-        <span id="res-wing" class="tag"></span>
-        <span id="res-instinct" class="tag"></span>
+      <div class="result-tags">
+        <span id="res-wing" class="badge-gold"></span>
+        <span id="res-instinct" class="badge-gold"></span>
       </div>
     </div>
 
     <div class="dossie-grid">
-      <section class="dossie-card">
+      <section class="card-glass">
         <h3>🌱 Gênese e Trauma Nuclear</h3>
         <p id="res-origin"></p>
         <div class="alert-box"><strong>Alerta de Regressão:</strong> <span id="res-regression"></span></div>
       </section>
 
-      <section class="dossie-card tech-card">
+      <section class="card-glass tech-border">
         <h3>🧠 Mapa Mental (PNL & Andragogia)</h3>
         <p><strong>Padrão PNL:</strong> <span id="res-pnl"></span></p>
         <p><strong>Aprendizado Adulto:</strong> <span id="res-andragogia"></span></p>
       </section>
 
-      <section class="dossie-card evolution-card">
+      <section class="card-glass gold-border">
         <h3>🚀 Rota de Saída (Estoicismo)</h3>
         <p><strong>Virtude de Cura:</strong> <span id="res-virtue"></span></p>
         <p id="res-evolution"></p>
@@ -71,11 +71,39 @@
       </section>
     </div>
 
-    <div class="cta-section">
-      <h3>⚡ Sua jornada de cura começa agora.</h3>
-      <p>Este diagnóstico é o mapa, o Método PráticaMente é o veículo.</p>
-      <a href="SEU-LINK-AQUI" class="cta-main-btn">QUERO MINHA EVOLUÇÃO ACELERADA</a>
-      <button class="btn-secondary" onclick="window.print()">Imprimir Dossiê em PDF</button>
+    <div id="feedback-section" class="card-glass highlight-border">
+      <h3>📥 Liberar Relatório Completo (PDF)</h3>
+      <p>Para baixar seu dossiê detalhado, confirme sua identidade e deixe seu feedback:</p>
+      
+      <div class="feedback-form">
+        <div class="google-sim">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="16">
+          <span>Autenticado via Google: <strong>otavio***@gmail.com</strong></span>
+        </div>
+
+        <label>O que você achou da precisão do diagnóstico?</label>
+        <select id="fb-rating">
+          <option value="5">⭐⭐⭐⭐⭐ - Extremamente Preciso</option>
+          <option value="4">⭐⭐⭐⭐ - Muito Bom</option>
+          <option value="3">⭐⭐⭐ - Regular</option>
+        </select>
+
+        <label>Seu depoimento sobre o teste:</label>
+        <textarea id="fb-text" placeholder="Como este resultado te ajudou hoje?"></textarea>
+
+        <label>Você recomendaria este teste para alguém?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="recommend" value="sim"> Com certeza!</label>
+          <label><input type="radio" name="recommend" value="nao"> Não</label>
+        </div>
+
+        <button class="btn-glow" onclick="unlockPDF()">ENVIAR E BAIXAR DOSSIÊ PDF</button>
+      </div>
+    </div>
+
+    <div class="cta-footer">
+      <h3>Deseja curar essas travas definitivamente?</h3>
+      <a href="SEU-LINK-AQUI" class="btn-main">QUERO ACELERAR MINHA EVOLUÇÃO AGORA</a>
     </div>
   </div>
 </div>
@@ -83,4 +111,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
