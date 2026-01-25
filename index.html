@@ -2,90 +2,65 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Análise de Perfil — Método PráticaMente</title>
+  <title>PráticaMente — Análise de Perfil</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-
-  <img src="logo-praticamente.png" class="logo" alt="PráticaMente">
-
-  <div id="header-text">
+  <div class="app">
+    <img src="logo.png" class="logo" alt="PráticaMente">
     <h1>Análise de Perfil PráticaMente</h1>
-    <p class="subtitle">Descubra suas travas ocultas e sua rota de evolução.</p>
-  </div>
+    <p class="subtitle">Autoconhecimento prático para evolução real</p>
 
-  <div id="progress">
-    <div id="progress-bar"></div>
-  </div>
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
 
-  <div id="question-box">
-    <p id="question-text"></p>
-    <div class="options">
-      <button onclick="answer(1)">Discordo totalmente</button>
-      <button onclick="answer(2)">Discordo</button>
-      <button onclick="answer(3)">Neutro</button>
-      <button onclick="answer(4)">Concordo</button>
-      <button onclick="answer(5)">Concordo totalmente</button>
+    <div id="question-card">
+      <h2 id="question-text"></h2>
+
+      <div class="options">
+        <button onclick="answer(1)">Discordo totalmente</button>
+        <button onclick="answer(2)">Discordo</button>
+        <button onclick="answer(3)">Neutro</button>
+        <button onclick="answer(4)">Concordo</button>
+        <button onclick="answer(5)">Concordo totalmente</button>
+      </div>
+    </div>
+
+    <div id="result-card" class="hidden">
+      <h2>Seu Resultado PráticaMente</h2>
+      <h3 id="result-type"></h3>
+
+      <div class="box">
+        <h4>✨ Pontos Fortes</h4>
+        <p id="strengths"></p>
+      </div>
+
+      <div class="box">
+        <h4>⚠️ Pontos de Atenção</h4>
+        <p id="weaknesses"></p>
+      </div>
+
+      <div class="box">
+        <h4>🚀 Onde Você Pode Evoluir</h4>
+        <p id="evolution"></p>
+      </div>
+
+      <div class="box">
+        <h4>🧠 Direção PráticaMente  
+        (PNL + Eneagrama + Estoicismo)</h4>
+        <p id="praticamente"></p>
+      </div>
+
+      <button class="download" onclick="alert('PDF será gerado aqui')">
+        Baixar Relatório em PDF
+      </button>
     </div>
   </div>
 
-  <div id="result-box" class="hidden fade-in">
-    <div class="report-header">
-      <span class="tag">RELATÓRIO GERADO</span>
-      <h2 id="profile-name"></h2>
-    </div>
-
-    <div class="card default-card">
-      <h3>Suas Forças e Fraquezas</h3>
-      <p id="strengths"></p>
-      <p id="weaknesses" class="alert-text"></p>
-    </div>
-
-    <div class="card deep-card">
-      <h3>🔍 A Raiz: Trauma e Infância</h3>
-      <p id="childhood"></p>
-    </div>
-
-    <div class="card danger-card">
-      <h3>⚠️ Sinais de Regressão (Alerta)</h3>
-      <p id="regression"></p>
-    </div>
-
-    <div class="card tech-card">
-      <h3>🧬 Seu Mapa Mental</h3>
-      <p id="pnl"></p>
-      <p id="andragogia"></p>
-    </div>
-
-    <div class="card success-card">
-      <h3>📈 Sua Rota de Evolução</h3>
-      <p id="estoicismo"></p>
-      <p id="evolution"></p>
-      <hr>
-      <p id="exercise"></p>
-    </div>
-
-    <div class="cta-box">
-      <h3>⚡ Este foi apenas o diagnóstico. Agora é hora de curar.</h3>
-      <p id="cta-text"></p>
-      <a href="https://SEU-LINK-DO-CURSO-AQUI" target="_blank" class="cta-btn">
-        QUERO ACELERAR MINHA EVOLUÇÃO AGORA
-      </a>
-      <p class="scarcity">O Método PráticaMente une Eneagrama, PNL e Estoicismo na prática.</p>
-    </div>
-
-  </div>
-
-</div>
-
-<script src="script.js"></script>
-
-</body>
-</html>
-
+  <script src="script.js"></script>
 </body>
 </html>
 
