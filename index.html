@@ -127,26 +127,23 @@
                             <span class="tag-label">TIPO DOMINANTE</span>
                             <span id="res-type" class="tag-value">X</span>
                         </div>
-                        <div class="tag-explainer"><strong>SUA ESSÊNCIA</strong><br>Quem você é na raiz</div>
                     </div>
                     <div class="tag-group">
                         <div class="tag-box border-gold">
                             <span class="tag-label">ASA (WING)</span>
                             <span id="res-wing-calc" class="tag-value">Y</span>
                         </div>
-                        <div class="tag-explainer gold"><strong>SUA FERRAMENTA</strong><br>Como você age</div>
                     </div>
                     <div class="tag-group">
                         <div class="tag-box">
                             <span class="tag-label">INSTINTO</span>
                             <span id="res-subtype" class="tag-value">Z</span>
                         </div>
-                        <div class="tag-explainer"><strong>SEU FOCO</strong><br>Onde gasta energia</div>
                     </div>
                 </div>
             </div>
 
-            <div class="chart-container" style="position: relative; height:300px; width:100%; margin-bottom: 40px;">
+            <div class="chart-container" style="position: relative; height:250px; width:100%; margin-bottom: 40px;">
                 <canvas id="radarChart"></canvas>
             </div>
 
@@ -166,17 +163,46 @@
                 </div>
             </div>
 
-            <div class="deep-card">
-                <h4><i class="ph-fingerprint"></i> A Raiz (Gênese)</h4>
-                <p id="res-genesis">...</p>
-            </div>
-            <div class="deep-card border-red">
-                <h4><i class="ph-warning-octagon"></i> O Motivo da Explosão (Vício)</h4>
-                <p id="res-behavior">...</p>
-            </div>
-            <div class="deep-card border-gold">
-                <h4><i class="ph-lightning"></i> O Remédio (Evolução)</h4>
-                <p id="res-evolution">...</p>
+            <div class="detailed-report-grid">
+                
+                <div class="report-column">
+                    <div class="report-block">
+                        <h4 class="report-title text-orange"><i class="ph-brain"></i> ESSÊNCIA (Quem eu sou)</h4>
+                        <ul id="list-essencia" class="report-list"></ul>
+                    </div>
+                    <div class="report-block">
+                        <h4 class="report-title text-yellow"><i class="ph-heart"></i> FORÇAS (Luz do tipo)</h4>
+                        <ul id="list-forcas" class="report-list"></ul>
+                    </div>
+                    <div class="report-block">
+                        <h4 class="report-title text-blue"><i class="ph-arrows-left-right"></i> MOVIMENTO DE DESEQUILÍBRIO</h4>
+                        <ul id="list-desequilibrio" class="report-list"></ul>
+                    </div>
+                    <div class="report-block">
+                        <h4 class="report-title text-gold-bright"><i class="ph-sparkle"></i> POTENCIAL MÁXIMO</h4>
+                        <ul id="list-potencial" class="report-list"></ul>
+                    </div>
+                </div>
+
+                <div class="report-column">
+                    <div class="report-block">
+                        <h4 class="report-title text-red"><i class="ph-warning-circle"></i> DESAFIOS (Sombra do tipo)</h4>
+                        <ul id="list-desafios" class="report-list"></ul>
+                    </div>
+                    <div class="report-block">
+                        <h4 class="report-title text-orange-dark"><i class="ph-target"></i> PADRÃO INCONSCIENTE</h4>
+                        <p id="txt-padrao-frase" class="highlight-quote"></p>
+                        <div class="sub-list-container">
+                            <p class="sub-label">Mas o preço é alto:</p>
+                            <ul id="list-padrao-preco" class="report-list"></ul>
+                        </div>
+                        <p id="txt-padrao-acao" class="action-arrow"></p>
+                    </div>
+                    <div class="report-block box-practices">
+                        <h4 class="report-title text-green"><i class="ph-plant"></i> PRÁTICAS PRÁTICAMENTE</h4>
+                        <ul id="list-praticas" class="report-list"></ul>
+                    </div>
+                </div>
             </div>
 
             <div class="cta-box">
@@ -201,5 +227,4 @@
     <script src="script.js"></script>
 </body>
 </html>
-
 
