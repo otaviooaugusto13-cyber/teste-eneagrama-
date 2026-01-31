@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("capture-form");
     if (form) {
         form.addEventListener("submit", function(ev) {
-            ev.preventDefault(); // IMPEDE O REDIRECIONAMENTO PADRÃO
+            ev.preventDefault(); 
             
             const nameInput = document.getElementById("input-name");
             if(nameInput && nameInput.value.trim() !== "") {
@@ -44,26 +44,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const data = new FormData(form);
             
-            // ENVIO SILENCIOSO PARA O FORMSPREE
             fetch(form.action, {
                 method: form.method,
                 body: data,
-                headers: {
-                    'Accept': 'application/json' // OBRIGATÓRIO PARA NÃO REDIRECIONAR
-                }
+                headers: { 'Accept': 'application/json' }
             })
-            .then(response => {
-                if (response.ok) {
-                    iniciarQuizTela(); // SUCESSO
-                } else {
-                    console.log("Erro no Formspree, mas iniciando teste...");
-                    iniciarQuizTela(); // INICIA MESMO COM ERRO PRA NÃO TRAVAR
-                }
-            })
-            .catch(error => {
-                console.log("Erro de rede:", error);
-                iniciarQuizTela(); // INICIA MESMO COM ERRO
-            });
+            .then(response => { iniciarQuizTela(); })
+            .catch(error => { iniciarQuizTela(); });
         });
     }
 });
@@ -86,7 +73,153 @@ function iniciarQuizTela() {
    ====================================================== */
 const bancoPerguntas = [ { tipo: 1, txt: "Sinto uma pressão interna constante para corrigir erros e colocar ordem." }, { tipo: 1, txt: "Tenho um 'crítico interno' severo que me julga por qualquer falha." }, { tipo: 1, txt: "Fico frustrado quando vejo pessoas sendo irresponsáveis." }, { tipo: 2, txt: "Priorizo as necessidades dos outros e ignoro as minhas." }, { tipo: 2, txt: "Sinto que preciso ser útil para ter valor na vida das pessoas." }, { tipo: 2, txt: "Tenho dificuldade em dizer 'não' e me sobrecarrego." }, { tipo: 3, txt: "Sinto que meu valor depende das minhas conquistas e resultados." }, { tipo: 3, txt: "Adapto minha imagem para causar a melhor impressão possível." }, { tipo: 3, txt: "Tenho pavor de fracassar ou parecer incompetente." }, { tipo: 4, txt: "Sinto que falta algo em mim que os outros têm." }, { tipo: 4, txt: "Busco profundidade e detesto a superficialidade." }, { tipo: 4, txt: "Passo muito tempo imaginando cenários ideais ou nostálgicos." }, { tipo: 5, txt: "Preciso de muito tempo sozinho para recarregar minhas energias." }, { tipo: 5, txt: "Prefiro observar e entender antes de participar." }, { tipo: 5, txt: "Protejo minha privacidade e evito demandas emocionais." }, { tipo: 6, txt: "Minha mente está sempre escaneando perigos e riscos." }, { tipo: 6, txt: "A lealdade é vital, mas demoro a confiar nas pessoas." }, { tipo: 6, txt: "A dúvida e a ansiedade muitas vezes me paralisam." }, { tipo: 7, txt: "Tenho muitas ideias, mas dificuldade em terminar o que começo." }, { tipo: 7, txt: "Evito o tédio e a dor mantendo-me ocupado e otimista." }, { tipo: 7, txt: "Sinto que preciso experimentar tudo para não perder nada." }, { tipo: 8, txt: "Gosto de estar no controle para garantir que não serei controlado." }, { tipo: 8, txt: "Protejo os 'meus' com ferocidade, mas não tolero traição." }, { tipo: 8, txt: "Tenho dificuldade em mostrar vulnerabilidade." }, { tipo: 9, txt: "Evito conflitos a todo custo para manter a paz." }, { tipo: 9, txt: "Tenho tendência a procrastinar para não me estressar." }, { tipo: 9, txt: "Muitas vezes concordo com os outros só para não criar atrito." } ];
 const perguntasInstinto = [ { txt: "Quando entro num ambiente novo, minha atenção vai para:", opcoes: [ { txt: "Conforto físico, temperatura e segurança.", tag: "SP" }, { txt: "Quem são as pessoas atraentes ou interessantes.", tag: "SX" }, { txt: "Quem tem poder e onde eu me encaixo no grupo.", tag: "SO" } ] }, { txt: "O que mais me gera ansiedade hoje?", opcoes: [ { txt: "Instabilidade financeira ou problemas de saúde.", tag: "SP" }, { txt: "Falta de conexão profunda ou rejeição pessoal.", tag: "SX" }, { txt: "Ser excluído do grupo ou perder minha reputação.", tag: "SO" } ] }, { txt: "Como prefiro recarregar as energias?", opcoes: [ { txt: "No meu canto, cuidando das minhas coisas.", tag: "SP" }, { txt: "Em conversas intensas 'olho no olho'.", tag: "SX" }, { txt: "Em eventos sociais, reuniões ou com a galera.", tag: "SO" } ] } ];
-const perfisData = { 1: { nome: "O PERFECCIONISTA", vicio: "Ira", pctVicio: "92%", pctLider: "95%", genese: "Você cresceu sentindo que só seria amado se fosse perfeito. Engoliu a raiva para ser o 'exemplo'.", comportamento: "Busca ordem no caos. É rígido consigo mesmo.", evolucao: "O Eneagrama mostra o erro. A PNL reconfigura sua reação. O Estoicismo traz serenidade. A Andragogia acelera sua mudança." }, 2: { nome: "O AJUDADOR", vicio: "Orgulho", pctVicio: "88%", pctLider: "85%", genese: "Acreditou que ter necessidades próprias era egoísmo. Comprou amor sendo útil.", comportamento: "Você se torna indispensável para criar dependência. Dá tudo, mas cobra a conta emocional depois.", evolucao: "Usamos PNL para quebrar o vício em aprovação e Estoicismo para fortalecer seu autoamor." }, 3: { nome: "O REALIZADOR", vicio: "Vaidade", pctVicio: "98%", pctLider: "99%", genese: "Você aprendeu que Amor = Performance. Seu valor foi medido por notas e troféus.", comportamento: "Você é um camaleão. Sabe vender, mas sente um vazio existencial quando a plateia vai embora.", evolucao: "O método PráticaMente usa Andragogia para remover a máscara e construir uma identidade antifrágil." }, 4: { nome: "O INDIVIDUALISTA", vicio: "Inveja", pctVicio: "90%", pctLider: "75%", genese: "Sentiu-se invisível ou 'quebrado' na infância. Acredita que a felicidade é dos outros.", comportamento: "Vicia na melancolia e no drama para se sentir vivo. Sabota o que é estável.", evolucao: "Parar de romantizar a dor. O Estoicismo te dá disciplina e a PNL ancora estados de gratidão." }, 5: { nome: "O OBSERVADOR", vicio: "Avareza", pctVicio: "85%", pctLider: "82%", genese: "Sentiu o mundo como invasivo. Ergueu muros mentais para se proteger.", comportamento: "Você acumula conhecimento mas tem medo de agir. Vive na cabeça e desconecta do corpo.", evolucao: "O PráticaMente te tira da arquibancada. A PNL conecta mente e corpo para a ação real." }, 6: { nome: "O LEALISTA", vicio: "Medo", pctVicio: "94%", pctLider: "80%", genese: "Viveu em ambiente imprevisível. Radar de perigo travou no 'ligado'.", comportamento: "Cenários catastróficos te paralisam. Você busca segurança fora, mas duvida dela.", evolucao: "Substituir dúvida por Fé em Si. A PNL silencia o medo e o Estoicismo constrói sua fortaleza." }, 7: { nome: "O ENTUSIASTA", vicio: "Gula", pctVicio: "89%", pctLider: "88%", genese: "Fugiu de uma dor infantil para a imaginação. Criou um escudo de positividade.", comportamento: "Começa dez projetos, não termina nenhum. Tem pavor do tédio e do silêncio.", evolucao: "Aprender a ficar. Andragogia te dá foco laser e Estoicismo ensina a alegria na profundidade." }, 8: { nome: "O DESAFIADOR", vicio: "Luxúria", pctVicio: "96%", pctLider: "96%", genese: "Matou sua inocência para sobreviver. Decidiu: 'Nunca mais serei controlado'.", comportamento: "Atropela as pessoas sem ver. Sua honestidade fere. Tem um coração gigante blindado.", evolucao: "Baixar a guarda. A PNL ressignifica a vulnerabilidade como poder real de liderança." }, 9: { nome: "O PACIFICISTA", vicio: "Preguiça", pctVicio: "80%", pctLider: "70%", genese: "Sentiu que sua voz causava problemas. A estratégia foi ficar 'invisível'.", comportamento: "Procrastina o essencial. Acumula raiva passiva até explodir ou sumir.", evolucao: "Acordar para a vida. Usamos Andragogia para criar micro-metas de ação imediata." } };
+
+/* DADOS DOS PERFIS (OTAVIO: PREENCHER OS TEXTOS DOS TIPOS 1 A 8) */
+const perfisData = {
+    1: {
+        nome: "O PERFECCIONISTA",
+        essencia: ["Busca integridade e melhoria.", "Focado em fazer o que é certo.", "Deseja ser justo e objetivo."],
+        forcas: ["Organizado e ético.", "Confiável e trabalhador.", "Alto padrão de qualidade."],
+        desequilibrio: ["Torna-se rígido e crítico.", "Reprime a raiva.", "Julga excessivamente."],
+        potencial: ["Aceita a imperfeição humana.", "Lidera pelo exemplo sereno.", "Transforma crítica em sabedoria."],
+        desafios: ["Tendência ao ressentimento.", "Dificuldade em relaxar.", "Medo de cometer erros."],
+        padraoFrase: "Se eu for perfeito, estarei seguro.",
+        padraoPreco: ["Ansiedade constante.", "Rigidez muscular.", "Exaustão mental."],
+        padraoAcao: "Feito é melhor que perfeito.",
+        praticas: ["Quebrar uma regra pequena de propósito.", "Delegar sem corrigir depois.", "Praticar o não-julgamento."]
+    },
+    2: {
+        nome: "O AJUDADOR",
+        essencia: ["Busca conexão e amor.", "Focado nas necessidades alheias.", "Generoso e demonstrativo."],
+        forcas: ["Empático e carinhoso.", "Altruísta.", "Grande capacidade de apoio."],
+        desequilibrio: ["Torna-se invasivo.", "Cobra reconhecimento.", "Esquece de si mesmo."],
+        potencial: ["Ama sem esperar troca.", "Humildade genuína.", "Cuidado equilibrado."],
+        desafios: ["Dificuldade em dizer não.", "Orgulho oculto.", "Carência afetiva."],
+        padraoFrase: "Se eu ajudar a todos, serei amado.",
+        padraoPreco: ["Exaustão emocional.", "Ressentimento.", "Perda da identidade."],
+        padraoAcao: "Primeiro a máscara de oxigênio em você.",
+        praticas: ["Fazer algo só para si mesmo.", "Pedir ajuda.", "Identificar suas próprias necessidades."]
+    },
+    3: {
+        nome: "O REALIZADOR",
+        essencia: ["Busca valor e admiração.", "Focado em metas e sucesso.", "Adaptável e eficiente."],
+        forcas: ["Motivador e prático.", "Competente.", "Grande realizador."],
+        desequilibrio: ["Torna-se viciado em trabalho.", "Competitivo demais.", "Falso (camaleão)."],
+        potencial: ["Autenticidade.", "Liderança inspiradora.", "Valoriza o ser, não o ter."],
+        desafios: ["Medo do fracasso.", "Vaidade.", "Desconexão dos sentimentos."],
+        padraoFrase: "Sou o que eu realizo.",
+        padraoPreco: ["Vazio interior.", "Stress crônico.", "Relações superficiais."],
+        padraoAcao: "O sucesso sem alma é o maior fracasso.",
+        praticas: ["Desacelerar propositalmente.", "Falar de um fracasso real.", "Praticar hobbies sem meta."]
+    },
+    4: {
+        nome: "O INDIVIDUALISTA",
+        essencia: ["Busca identidade e profundidade.", "Sensível e criativo.", "Introspectivo."],
+        forcas: ["Criatividade única.", "Compaixão profunda.", "Honestidade emocional."],
+        desequilibrio: ["Dramático e melancólico.", "Invejoso.", "Auto-absorvido."],
+        potencial: ["Equilíbrio emocional.", "Transforma dor em arte.", "Conexão universal."],
+        desafios: ["Vício no sofrimento.", "Sentimento de falta.", "Instabilidade."],
+        padraoFrase: "Ninguém me entende de verdade.",
+        padraoPreco: ["Isolamento.", "Depressão.", "Paralisia na ação."],
+        padraoAcao: "A disciplina traz a liberdade.",
+        praticas: ["Rotina e constância.", "Focar no que tem, não no que falta.", "Ação física."]
+    },
+    5: {
+        nome: "O OBSERVADOR",
+        essencia: ["Busca conhecimento e competência.", "Cerebral e analítico.", "Independente."],
+        forcas: ["Visão objetiva.", "Curiosidade intelectual.", "Calma em crises."],
+        desequilibrio: ["Isolado e cínico.", "Avaro com tempo/energia.", "Desconectado do corpo."],
+        potencial: ["Sabedoria prática.", "Engajamento no mundo.", "Generosidade mental."],
+        desafios: ["Medo de ser invadido.", "Paralisia por análise.", "Frieza."],
+        padraoFrase: "Preciso entender tudo antes de agir.",
+        padraoPreco: ["Solidão.", "Ansiedade mental.", "Niilismo."],
+        padraoAcao: "O conhecimento só vale se compartilhado.",
+        praticas: ["Expressar sentimentos.", "Participar de grupos.", "Atividade física intensa."]
+    },
+    6: {
+        nome: "O LEALISTA",
+        essencia: ["Busca segurança e apoio.", "Alerta e responsável.", "Comprometido."],
+        forcas: ["Lealdade e coragem.", "Bom em prever problemas.", "Trabalho em equipe."],
+        desequilibrio: ["Ansioso e desconfiado.", "Pessimista.", "Reativo."],
+        potencial: ["Fé em si mesmo.", "Coragem serena.", "Confiança na vida."],
+        desafios: ["Dúvida constante.", "Cenários catastróficos.", "Indecisão."],
+        padraoFrase: "E se tudo der errado?",
+        padraoPreco: ["Stress alto.", "Perda de oportunidades.", "Dependência de autoridade."],
+        padraoAcao: "A coragem não é ausência de medo.",
+        praticas: ["Meditação (silenciar a mente).", "Tomar decisões rápidas.", "Focar no melhor cenário."]
+    },
+    7: {
+        nome: "O ENTUSIASTA",
+        essencia: ["Busca felicidade e estímulo.", "Espontâneo e versátil.", "Otimista."],
+        forcas: ["Alegria contagiante.", "Criatividade rápida.", "Resiliência."],
+        desequilibrio: ["Impulsivo e disperso.", "Foge da dor.", "Indisciplinado."],
+        potencial: ["Sobriedade e foco.", "Gratidão presente.", "Alegria profunda."],
+        desafios: ["Medo do tédio.", "Gula por experiências.", "Falta de acabativa."],
+        padraoFrase: "Eu quero tudo e agora.",
+        padraoPreco: ["Superficialidade.", "Ansiedade.", "Fuga da realidade."],
+        padraoAcao: "A liberdade real requer compromisso.",
+        praticas: ["Terminar o que começa.", "Praticar o silêncio.", "Aceitar emoções tristes."]
+    },
+    8: {
+        nome: "O DESAFIADOR",
+        essencia: ["Busca controle e justiça.", "Forte e assertivo.", "Protetor."],
+        forcas: ["Liderança natural.", "Energia realizadora.", "Defensor dos fracos."],
+        desequilibrio: ["Agressivo e dominador.", "Insensível.", "Vingativo."],
+        potencial: ["Compaixão e inocência.", "Uso do poder para o bem.", "Líder magnânimo."],
+        desafios: ["Dificuldade com vulnerabilidade.", "Excesso de intensidade.", "Negação da fraqueza."],
+        padraoFrase: "Eu sou forte, ninguém manda em mim.",
+        padraoPreco: ["Desgaste nos relacionamentos.", "Solidão no topo.", "Endurecimento."],
+        padraoAcao: "A verdadeira força é gentil.",
+        praticas: ["Ouvir sem interromper.", "Admitir um erro.", "Cuidar de algo frágil (planta/animal)."]
+    },
+    9: {
+        nome: "O PACIFICADOR",
+        essencia: [
+            "O Tipo 9 busca paz, harmonia e estabilidade.",
+            "Tem facilidade em se adaptar, acolher e manter o ambiente tranquilo.",
+            "Seu maior desejo é <strong>'não perder a conexão'</strong> com as pessoas e com a vida ao redor.",
+            "💡 No seu melhor estado, o 9 é <strong>ponte, não muro</strong>."
+        ],
+        forcas: [
+            "Descomplicado e de fácil convivência",
+            "Empático, receptivo e agregador",
+            "Constante, leal e confiável",
+            "Bom coração e grande capacidade de escuta"
+        ],
+        desequilibrio: [
+            "Foge de decisões importantes",
+            "Evita conversas difíceis",
+            "Se anestesia (rotina, distrações, conforto excessivo)"
+        ],
+        potencial: [
+            "Une pessoas <strong>sem se anular</strong>",
+            "Sustenta a paz com presença e coragem",
+            "Lidera com serenidade e consistência",
+            "Torna-se um <strong>'pacificador consciente'</strong>"
+        ],
+        desafios: [
+            "Tendência à <strong>passividade</strong>",
+            "Esquecimento de si mesmo",
+            "Dificuldade em dizer <strong>'não'</strong>",
+            "Cede demais para evitar conflitos",
+            "Pode confundir paz com acomodação"
+        ],
+        padraoFrase: "Se eu não me posicionar, tudo fica bem.",
+        padraoPreco: [
+            "perda de <strong>identidade</strong>",
+            "procrastinação",
+            "sensação de estar vivendo a vida dos outros",
+            "Ajo antes de 'ter vontade'"
+        ],
+        padraoAcao: "Pequenas ações diárias quebram a inércia.",
+        praticas: [
+            "Definir <strong>1 prioridade</strong> pessoal por dia",
+            "Verbalizar <strong>opiniões simples</strong> ('eu prefiro..')",
+            "Usar a pergunta-chave: O que eu quero?",
+            "Transformar mediação externa em autoliderança"
+        ]
+    }
+};
 
 let pontuacaoTipos = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}; let pontuacaoInstinto = { "SP": 0, "SX": 0, "SO": 0 }; let indiceTipo = 0; let indiceInstinto = 0; let faseAtual = "TIPO"; let perguntasTipoEmbaralhadas = [];
 
@@ -129,21 +262,53 @@ function processarFinalizacao() {
 function exibirResultados(tipo, asa, subtipo) {
     document.getElementById('screen-loading').classList.add('hidden');
     document.getElementById('screen-result').classList.remove('hidden');
-    const dados = perfisData[tipo];
+    
+    // Fallback seguro caso o tipo não esteja completo
+    const dados = perfisData[tipo] || perfisData[9]; 
+    
     updateElement('user-name-result', userName);
-    if(dados) {
-        updateElement('res-archetype', dados.nome); updateElement('res-type', `TIPO ${tipo}`); updateElement('res-wing-calc', `ASA ${asa}`); updateElement('res-subtype', subtipo);
-        updateElement('res-vice', dados.vicio.toUpperCase()); updateElement('res-genesis', dados.genese); updateElement('res-behavior', dados.comportamento); updateElement('res-evolution', dados.evolucao);
-        let infl = 70, res = 70, est = 70; if ([2,3,7,8].includes(tipo)) infl = 90 + Math.random()*5; if ([1,8,9,5].includes(tipo)) res = 90 + Math.random()*5; if ([5,6,1,3].includes(tipo)) est = 90 + Math.random()*5;
-        setTimeout(() => { document.getElementById('bar-infl').style.width = `${infl}%`; document.getElementById('score-infl').innerText = `${Math.floor(infl)}%`; document.getElementById('bar-res').style.width = `${res}%`; document.getElementById('score-res').innerText = `${Math.floor(res)}%`; document.getElementById('bar-est').style.width = `${est}%`; document.getElementById('score-est').innerText = `${Math.floor(est)}%`; }, 500);
-        gerarGraficoRadar(pontuacaoTipos);
-    }
+    updateElement('res-archetype', dados.nome); 
+    updateElement('res-type', `TIPO ${tipo}`); 
+    updateElement('res-wing-calc', `ASA ${asa}`); 
+    updateElement('res-subtype', subtipo);
+
+    // Renderiza as Listas
+    const createList = (items) => items.map(i => `<li>${i}</li>`).join('');
+
+    document.getElementById('list-essencia').innerHTML = createList(dados.essencia);
+    document.getElementById('list-forcas').innerHTML = createList(dados.forcas);
+    document.getElementById('list-desequilibrio').innerHTML = createList(dados.desequilibrio);
+    document.getElementById('list-potencial').innerHTML = createList(dados.potencial);
+    document.getElementById('list-desafios').innerHTML = createList(dados.desafios);
+    
+    updateElement('txt-padrao-frase', `"${dados.padraoFrase}"`);
+    document.getElementById('list-padrao-preco').innerHTML = createList(dados.padraoPreco);
+    updateElement('txt-padrao-acao', dados.padraoAcao);
+    document.getElementById('list-praticas').innerHTML = createList(dados.praticas);
+
+    // Barras de Competência
+    let infl = 70, res = 70, est = 70; 
+    if ([2,3,7,8].includes(tipo)) infl = 90 + Math.random()*5; 
+    if ([1,8,9,5].includes(tipo)) res = 90 + Math.random()*5; 
+    if ([5,6,1,3].includes(tipo)) est = 90 + Math.random()*5;
+    
+    setTimeout(() => { 
+        document.getElementById('bar-infl').style.width = `${infl}%`; 
+        document.getElementById('score-infl').innerText = `${Math.floor(infl)}%`; 
+        document.getElementById('bar-res').style.width = `${res}%`; 
+        document.getElementById('score-res').innerText = `${Math.floor(res)}%`; 
+        document.getElementById('bar-est').style.width = `${est}%`; 
+        document.getElementById('score-est').innerText = `${Math.floor(est)}%`; 
+    }, 500);
+
+    gerarGraficoRadar(pontuacaoTipos);
 }
 
 function gerarGraficoRadar(pontos) {
     const ctx = document.getElementById('radarChart').getContext('2d');
     const dataValues = [pontos[1], pontos[2], pontos[3], pontos[4], pontos[5], pontos[6], pontos[7], pontos[8], pontos[9]];
-    new Chart(ctx, { type: 'radar', data: { labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9'], datasets: [{ label: 'Assinatura Neural', data: dataValues, backgroundColor: 'rgba(212, 175, 55, 0.2)', borderColor: '#D4AF37', borderWidth: 2, pointBackgroundColor: '#fff', pointBorderColor: '#D4AF37' }] }, options: { scales: { r: { angleLines: { color: 'rgba(255, 255, 255, 0.1)' }, grid: { color: 'rgba(255, 255, 255, 0.1)' }, pointLabels: { color: '#aaa', font: { size: 10 } }, ticks: { display: false, backdropColor: 'transparent' }, suggestedMin: 0, suggestedMax: 20 } }, plugins: { legend: { display: false } }, maintainAspectRatio: false } });
+    if(window.myRadar) window.myRadar.destroy();
+    window.myRadar = new Chart(ctx, { type: 'radar', data: { labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9'], datasets: [{ label: 'Assinatura Neural', data: dataValues, backgroundColor: 'rgba(212, 175, 55, 0.2)', borderColor: '#D4AF37', borderWidth: 2, pointBackgroundColor: '#fff', pointBorderColor: '#D4AF37' }] }, options: { scales: { r: { angleLines: { color: 'rgba(255, 255, 255, 0.1)' }, grid: { color: 'rgba(255, 255, 255, 0.1)' }, pointLabels: { color: '#aaa', font: { size: 10 } }, ticks: { display: false, backdropColor: 'transparent' }, suggestedMin: 0, suggestedMax: 20 } }, plugins: { legend: { display: false } }, maintainAspectRatio: false } });
 }
 
 function baixarEEntrar() {
@@ -153,5 +318,4 @@ function baixarEEntrar() {
     setTimeout(() => { window.location.href = LINK_WHATSAPP; }, 1000);
 }
 
-function updateElement(id, text) { const el = document.getElementById(id); if(el) el.innerText = text; }
-
+function updateElement(id, text) { const el = document.getElementById(id); if(el) el.innerHTML = text; }
