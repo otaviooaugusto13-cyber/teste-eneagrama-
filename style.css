@@ -178,6 +178,73 @@ select.input-glass option { background: #000; color: #fff; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .console-text { font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--gold); opacity: 0.7; text-align: left; line-height: 2; }
 
+/* === TELA DE CONTEXTO === */
+.contexto-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-contexto {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: 0.25s;
+    text-align: left;
+    width: 100%;
+}
+
+.btn-contexto:hover {
+    border-color: var(--gold);
+    background: rgba(212, 175, 55, 0.08);
+    transform: translateX(6px);
+}
+
+.ctx-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+}
+
+.ctx-title {
+    display: block;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 3px;
+}
+
+.ctx-desc {
+    display: block;
+    color: #777;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+
+.btn-contexto:hover .ctx-title { color: var(--gold); }
+.btn-contexto:hover .ctx-desc  { color: #aaa; }
+
+.contexto-badge-result {
+    background: rgba(212, 175, 55, 0.08);
+    color: var(--gold);
+    border: 1px solid var(--border-gold);
+    border-radius: 50px;
+    font-size: 0.6rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    display: inline-block;
+    margin-bottom: 18px;
+}
+
 /* === MOBILE RESPONSIVE FIXES === */
 @media (max-width: 768px) { 
     .detailed-report-grid { grid-template-columns: 1fr; } 
