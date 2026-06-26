@@ -1,4 +1,3 @@
-
 /* ======================================================
    CONFIGURAÇÃO & VARIÁVEIS
    ====================================================== */
@@ -7,7 +6,69 @@ const LINK_PDF = "";
 let userName = "LÍDER";
 let userEmail = "";
 let userPhone = "";
-let userContexto = "geral"; // contexto escolhido na tela de contexto
+let userContexto = "geral";
+
+// EmailJS — credenciais
+const EMAILJS_SERVICE_ID  = "service_yjnmgzq";
+const EMAILJS_TEMPLATE_ID = "template_qr6xyru";
+const EMAILJS_PUBLIC_KEY  = "UFhvGVkmgV0VpWyKALl7S";
+
+// Estado salvo no sessionStorage para recuperar se fechar
+let resultadoSalvo = null;
+
+/* ======================================================
+   ALERTA DE SAÍDA
+   ====================================================== */
+window.addEventListener('beforeunload', function(e) {
+    // Só ativa se o quiz tiver começado e ainda não tiver resultado
+    const quizAtivo = !document.getElementById('screen-quiz').classList.contains('hidden') ||
+                      !document.getElementById('screen-loading').classList.contains('hidden');
+    if (quizAtivo) {
+        e.preventDefault();
+        e.returnValue = 'Você perderá seu progresso no teste. Deseja sair mesmo assim?';
+        return e.returnValue;
+    }
+});
+
+/* ======================================================
+   RECUPERAR RESULTADO SALVO
+   ====================================================== */
+function verificarResultadoSalvo() {
+    try {
+        const salvo = sessionStorage.getItem('pm_resultado');
+        if (salvo) {
+            resultadoSalvo = JSON.parse(salvo);
+            // Mostra banner de recuperação
+            const banner = document.getElementById('banner-recuperar');
+            if (banner) banner.classList.remove('hidden');
+        }
+    } catch(e) {}
+}
+
+function recuperarResultado() {
+    if (!resultadoSalvo) return;
+    userName      = resultadoSalvo.nome;
+    userEmail     = resultadoSalvo.email;
+    userPhone     = resultadoSalvo.phone;
+    userContexto  = resultadoSalvo.contexto;
+    pontuacaoTipos   = resultadoSalvo.pontuacaoTipos;
+    pontuacaoInstinto = resultadoSalvo.pontuacaoInstinto;
+
+    document.getElementById('screen-intro').classList.add('hidden');
+    const banner = document.getElementById('banner-recuperar');
+    if (banner) banner.classList.add('hidden');
+
+    const nomesInstinto = { "SP": "AUTOPRESERVAÇÃO", "SX": "SEXUAL", "SO": "SOCIAL" };
+    document.getElementById('screen-loading').classList.remove('hidden');
+    const protocolo = "#PM-" + Math.floor(1000 + Math.random() * 9000);
+    updateElement('protocol-code', protocolo);
+    setTimeout(() => { exibirResultados(resultadoSalvo.tipo, resultadoSalvo.asa, nomesInstinto[resultadoSalvo.instinto]); }, 2000);
+}
+
+function reiniciarTeste() {
+    try { sessionStorage.removeItem('pm_resultado'); } catch(e) {}
+    location.reload();
+}
 
 /* ======================================================
    EFEITOS VISUAIS
@@ -521,6 +582,16 @@ function processarFinalizacao() {
     const nomesInstinto = { "SP": "AUTOPRESERVAÇÃO", "SX": "SEXUAL", "SO": "SOCIAL" };
     const protocolo = "#PM-" + Math.floor(1000 + Math.random() * 9000);
     updateElement('protocol-code', protocolo);
+
+    // Salva resultado no sessionStorage para recuperação
+    try {
+        sessionStorage.setItem('pm_resultado', JSON.stringify({
+            nome: userName, email: userEmail, phone: userPhone,
+            contexto: userContexto, tipo: vencedor, asa: asa,
+            instinto: instintoVencedor, pontuacaoTipos, pontuacaoInstinto
+        }));
+    } catch(e) {}
+
     setTimeout(() => { exibirResultados(vencedor, asa, nomesInstinto[instintoVencedor]); }, 3000);
 }
 
@@ -605,14 +676,38 @@ Equipe PráticaMente 🧠`;
     }).catch(err => console.log("Erro ao enviar resultado:", err));
 }
 
-/* ======================================================
-   EXIBIR RESULTADOS NA TELA
-   ====================================================== */
+function enviarEmailPessoa(tipo, asa, subtipo) {
+    if (!userEmail || !window.emailjs) return;
+
+    const base = perfisData[tipo] || perfisData[9];
+    const ctx_data = (contextoData[userContexto] || contextoData['pessoal'])[tipo] || contextoData['pessoal'][tipo];
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_name:    userName,
+        to_email:   userEmail,
+        tipo:       `TIPO ${tipo} — ${base.nome}`,
+        asa:        `ASA ${asa}`,
+        instinto:   subtipo,
+        contexto:   nomeContexto[userContexto] || userContexto,
+        essencia:   base.essencia.map(e => `• ${e}`).join('\n'),
+        forcas:     base.forcas.map(e => `• ${e}`).join('\n'),
+        desafios:   base.desafios.map(e => `• ${e}`).join('\n'),
+        padrao:     base.padraoFrase,
+        acao:       ctx_data.padraoAcao,
+        praticas:   ctx_data.praticas.map(e => `• ${e}`).join('\n'),
+        potencial:  ctx_data.potencial.map(e => `• ${e}`).join('\n'),
+        link_grupo: LINK_WHATSAPP
+    }, EMAILJS_PUBLIC_KEY)
+    .catch(err => console.log("Erro EmailJS:", err));
+}
+
+
 function exibirResultados(tipo, asa, subtipo) {
     document.getElementById('screen-loading').classList.add('hidden');
     document.getElementById('screen-result').classList.remove('hidden');
 
     enviarResultadoFormspree(tipo, asa, subtipo);
+    enviarEmailPessoa(tipo, asa, subtipo);
 
     const base = perfisData[tipo] || perfisData[9];
     const ctx_data = (contextoData[userContexto] || contextoData['pessoal'])[tipo] || contextoData['pessoal'][tipo];
