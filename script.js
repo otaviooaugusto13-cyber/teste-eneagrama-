@@ -259,9 +259,30 @@ function processarFinalizacao() {
     setTimeout(() => { exibirResultados(vencedor, asa, nomesInstinto[instintoVencedor]); }, 3000);
 }
 
+function enviarResultadoFormspree(tipo, asa, subtipo) {
+    const dados = perfisData[tipo] || perfisData[9];
+    const formData = new FormData();
+    formData.append("nome", userName);
+    formData.append("whatsapp", document.getElementById("input-phone") ? document.getElementById("input-phone").value : "não informado");
+    formData.append("origem", document.getElementById("input-source") ? document.getElementById("input-source").value : "não informado");
+    formData.append("resultado_tipo", `TIPO ${tipo} - ${dados.nome}`);
+    formData.append("resultado_asa", `ASA ${asa}`);
+    formData.append("resultado_instinto", subtipo);
+    formData.append("pontuacao_detalhada", JSON.stringify(pontuacaoTipos));
+    formData.append("data_hora", new Date().toLocaleString("pt-BR"));
+    
+    fetch("https://formspree.io/f/xwvoklpq", {
+        method: "POST",
+        body: formData,
+        headers: { "Accept": "application/json" }
+    }).catch(err => console.log("Erro ao enviar resultado:", err));
+}
+
 function exibirResultados(tipo, asa, subtipo) {
     document.getElementById('screen-loading').classList.add('hidden');
     document.getElementById('screen-result').classList.remove('hidden');
+    
+    enviarResultadoFormspree(tipo, asa, subtipo);
     
     // Fallback seguro caso o tipo não esteja completo
     const dados = perfisData[tipo] || perfisData[9]; 
