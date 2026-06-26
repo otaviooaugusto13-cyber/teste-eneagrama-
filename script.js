@@ -4,6 +4,8 @@
 const LINK_WHATSAPP = "https://whatsapp.com/channel/0029VbBTt6PDJ6GuZdRkO33D"; 
 const LINK_PDF = ""; 
 let userName = "LÍDER"; // Valor padrão
+let userEmail = "";
+let userPhone = "";
 
 /* ======================================================
    EFEITOS VISUAIS
@@ -37,6 +39,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if(nameInput && nameInput.value.trim() !== "") {
                 userName = nameInput.value.trim().toUpperCase();
             }
+            userEmail = document.getElementById("input-email") ? document.getElementById("input-email").value.trim() : "";
+            userPhone = document.getElementById("input-phone") ? document.getElementById("input-phone").value.trim() : "";
 
             const btn = form.querySelector("button");
             btn.innerHTML = '<i class="ph-spinner-gap ph-spin"></i> ACESSANDO...';
@@ -263,14 +267,19 @@ function enviarResultadoFormspree(tipo, asa, subtipo) {
     const dados = perfisData[tipo] || perfisData[9];
     const formData = new FormData();
     formData.append("nome", userName);
-    formData.append("whatsapp", document.getElementById("input-phone") ? document.getElementById("input-phone").value : "não informado");
+    formData.append("whatsapp", userPhone);
+    formData.append("_replyto", userEmail);
     formData.append("origem", document.getElementById("input-source") ? document.getElementById("input-source").value : "não informado");
     formData.append("resultado_tipo", `TIPO ${tipo} - ${dados.nome}`);
     formData.append("resultado_asa", `ASA ${asa}`);
     formData.append("resultado_instinto", subtipo);
     formData.append("pontuacao_detalhada", JSON.stringify(pontuacaoTipos));
     formData.append("data_hora", new Date().toLocaleString("pt-BR"));
-    
+    formData.append("_subject", `[PráticaMente] Diagnóstico de ${userName} — TIPO ${tipo} | ASA ${asa}`);
+
+    const resumoEmail = `Olá, ${userName}!\n\nObrigado por fazer o Diagnóstico de Liderança da PráticaMente.\n\n━━━━━━━━━━━━━━━━━━\nSEU RESULTADO\n━━━━━━━━━━━━━━━━━━\nTipo Dominante: TIPO ${tipo} — ${dados.nome}\nAsa (Wing): ASA ${asa}\nInstinto: ${subtipo}\n\nESSÊNCIA\n${dados.essencia.map(e => `• ${e}`).join('\n')}\n\nFORÇAS\n${dados.forcas.map(e => `• ${e}`).join('\n')}\n\nDESAFIOS\n${dados.desafios.map(e => `• ${e}`).join('\n')}\n\nPADRÃO INCONSCIENTE\n"${dados.padraoFrase}"\n➜ ${dados.padraoAcao}\n\nPRÁTICAS\n${dados.praticas.map(e => `• ${e}`).join('\n')}\n\nAcesse o grupo VIP:\nhttps://whatsapp.com/channel/0029VbBTt6PDJ6GuZdRkO33D\n\nCom gratidão,\nEquipe PráticaMente`;
+    formData.append("mensagem_resultado", resumoEmail);
+
     fetch("https://formspree.io/f/xwvoklpq", {
         method: "POST",
         body: formData,
@@ -278,11 +287,23 @@ function enviarResultadoFormspree(tipo, asa, subtipo) {
     }).catch(err => console.log("Erro ao enviar resultado:", err));
 }
 
+function abrirWhatsAppPessoa(tipo, asa, subtipo) {
+    const dados = perfisData[tipo] || perfisData[9];
+    const phone = userPhone.replace(/\D/g, '');
+    if (!phone || phone.length < 10) return;
+
+    const msg = `Olá, ${userName}! 👋\n\nAqui está o seu Diagnóstico PráticaMente 🎯\n\n🏆 *TIPO ${tipo} — ${dados.nome}*\n🔗 Asa: *ASA ${asa}*\n⚡ Instinto: *${subtipo}*\n\n📌 *Seu padrão inconsciente:*\n_"${dados.padraoFrase}"_\n➜ ${dados.padraoAcao}\n\n✅ *Suas práticas:*\n${dados.praticas.map(e => `• ${e}`).join('\n')}\n\nAcesse o grupo VIP para o manual completo 👇\nhttps://whatsapp.com/channel/0029VbBTt6PDJ6GuZdRkO33D`;
+
+    const url = `https://wa.me/55${phone}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+}
+
 function exibirResultados(tipo, asa, subtipo) {
     document.getElementById('screen-loading').classList.add('hidden');
     document.getElementById('screen-result').classList.remove('hidden');
-    
+
     enviarResultadoFormspree(tipo, asa, subtipo);
+    abrirWhatsAppPessoa(tipo, asa, subtipo);
     
     // Fallback seguro caso o tipo não esteja completo
     const dados = perfisData[tipo] || perfisData[9]; 
