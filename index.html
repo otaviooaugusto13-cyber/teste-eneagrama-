@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -93,6 +92,50 @@
             </div>
         </div>
 
+        <div id="screen-contexto" class="glass-panel hidden">
+            <div class="brand-logo"><span class="silver-text">Prática</span><span class="gold-text">Mente</span></div>
+
+            <div class="text-center" style="margin-bottom: 30px;">
+                <div class="method-badge"><i class="ph-crosshair"></i> PERSONALIZAÇÃO DO DIAGNÓSTICO</div>
+                <h2 class="question-text" style="margin-bottom: 10px;">Qual área da sua vida você quer entender melhor?</h2>
+                <p style="color: #888; font-size: 0.85rem;">Seu resultado será adaptado para essa área.</p>
+            </div>
+
+            <div class="contexto-grid">
+
+                <button class="btn-contexto" onclick="selecionarContexto('lider')">
+                    <span class="ctx-icon">🏢</span>
+                    <span class="ctx-title">Liderança & Negócios</span>
+                    <span class="ctx-desc">Sou líder, gestor ou empresário</span>
+                </button>
+
+                <button class="btn-contexto" onclick="selecionarContexto('familia')">
+                    <span class="ctx-icon">👨‍👩‍👧</span>
+                    <span class="ctx-title">Família & Filhos</span>
+                    <span class="ctx-desc">Quero melhorar minha relação em casa</span>
+                </button>
+
+                <button class="btn-contexto" onclick="selecionarContexto('relacionamento')">
+                    <span class="ctx-icon">💑</span>
+                    <span class="ctx-title">Relacionamento & Casal</span>
+                    <span class="ctx-desc">Quero entender meus padrões no amor</span>
+                </button>
+
+                <button class="btn-contexto" onclick="selecionarContexto('pessoal')">
+                    <span class="ctx-icon">🌱</span>
+                    <span class="ctx-title">Desenvolvimento Pessoal</span>
+                    <span class="ctx-desc">Quero me conhecer e evoluir</span>
+                </button>
+
+                <button class="btn-contexto" onclick="selecionarContexto('carreira')">
+                    <span class="ctx-icon">🎯</span>
+                    <span class="ctx-title">Carreira & Propósito</span>
+                    <span class="ctx-desc">Quero clareza no meu caminho profissional</span>
+                </button>
+
+            </div>
+        </div>
+
         <div id="screen-quiz" class="glass-panel hidden">
             <div class="brand-logo"><span class="silver-text">Prática</span><span class="gold-text">Mente</span></div>
             <div class="progress-track"><div id="progress-bar" class="progress-fill"></div></div>
@@ -122,6 +165,7 @@
             <div class="text-center">
                 <div class="protocol-id">PROTOCOLO: <span id="protocol-code">#PM-0000</span></div>
                 <div class="result-badge">DIAGNÓSTICO CONCLUÍDO</div>
+                <div id="res-contexto" class="contexto-badge-result"></div>
                 
                 <p class="user-greeting">RELATÓRIO DE <span id="user-name-result" class="gold">LÍDER</span></p>
                 
