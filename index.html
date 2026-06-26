@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/phosphor-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>emailjs.init("UFhvGVkmgV0VpWyKALl7S");</script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <link rel="stylesheet" href="style.css">
@@ -16,6 +18,20 @@
 
     <div class="main-bg-texture"></div>
     <canvas id="neural-bg"></canvas>
+
+    <div id="banner-recuperar" class="banner-recuperar hidden">
+        <div class="banner-content">
+            <i class="ph-clock-clockwise"></i>
+            <div>
+                <p class="banner-title">Encontramos seu diagnóstico anterior!</p>
+                <p class="banner-sub">Deseja ver o resultado ou refazer o teste?</p>
+            </div>
+            <div class="banner-btns">
+                <button onclick="recuperarResultado()" class="banner-btn-ver">Ver Resultado</button>
+                <button onclick="reiniciarTeste()" class="banner-btn-refazer">Refazer</button>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         
@@ -261,6 +277,9 @@
                     <i class="ph-whatsapp-logo" style="margin-right: 10px; font-size: 1.3rem; vertical-align: middle;"></i>
                     ACESSAR MANUAL NO GRUPO
                 </button>
+                <button onclick="reiniciarTeste()" class="btn-reiniciar">
+                    <i class="ph-arrow-counter-clockwise"></i> Refazer o Teste
+                </button>
             </div>
         </div>
 
@@ -275,6 +294,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>verificarResultadoSalvo();</script>
 </body>
 </html>
 
