@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Praticamente</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js para Gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- SweetAlert2 para Notificações -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+    <!-- Botão Oculto -->
+    <button id="secret-trigger"></button>
+
+    <!-- Modal de Login -->
+    <div id="login-section" class="hidden">
+        <div class="login-box">
+            <h2>Autenticação</h2>
+            <div class="input-group">
+                <input type="email" id="email" placeholder="E-mail de Administrador">
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Senha">
+            </div>
+            <button class="gold-btn" id="btn-login">Acessar Painel</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Principal -->
+    <div id="dashboard-section" class="hidden">
+        <header class="dashboard-header">
+            <div>
+                <h1>Painel Estratégico | Praticamente</h1>
+                <p style="color: var(--gold-secondary); font-size: 14px; margin-top: 5px;">Gestão de Perfis e Liderança</p>
+            </div>
+            <div class="header-actions">
+                <button class="gold-btn-outline" id="btn-clean-ui">Modo Foco</button>
+                <button class="gold-btn-outline" id="btn-export">Exportar CSV</button>
+                <button class="gold-btn" id="btn-logout">Sair (Timeout: <span id="timer">15:00</span>)</button>
+            </div>
+        </header>
+        
+        <main id="main-content">
+            <!-- KPIs Rápidos -->
+            <div class="cards-grid">
+                <div class="stat-card skeleton-bg" id="card-total">
+                    <h3>Total de Diagnósticos</h3>
+                    <div class="value">--</div>
+                    <div class="trend up">▲ 12% vs última semana</div>
+                </div>
+                <div class="stat-card skeleton-bg" id="card-top-type" style="border-left-color: var(--gold-secondary);">
+                    <h3>Eneatipo Dominante</h3>
+                    <div class="value">--</div>
+                </div>
+                <div class="stat-card skeleton-bg" id="card-conversion">
+                    <h3>Taxa de Conclusão</h3>
+                    <div class="value">--</div>
+                    <div class="trend up">▲ Muito Alta</div>
+                </div>
+                <div class="stat-card skeleton-bg" id="card-time" style="border-left-color: var(--gold-secondary);">
+                    <h3>Tempo Médio</h3>
+                    <div class="value">--</div>
+                </div>
+                <div class="stat-card skeleton-bg" id="card-clicks">
+                    <h3>Cliques no Canal</h3>
+                    <div class="value">--</div>
+                    <div class="trend up">▲ Ativos</div>
+                </div>
+                <div class="stat-card skeleton-bg" id="card-visits">
+                    <h3>Acessos ao Site</h3>
+                    <div class="value">--</div>
+                </div>
+            </div>
+
+            <!-- Gráficos e Insights -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Distribuição do Eneagrama</h3>
+                    <canvas id="radarChart"></canvas>
+                </div>
+                
+                <div class="insights-container">
+                    <h3>Insight de Liderança Dinâmico</h3>
+                    <div id="pnl-insight" class="insight-box">
+                        Carregando insight baseado no Eneatipo dominante...
+                    </div>
+
+                    <h3 style="margin-top: 20px;">Métricas de Drop-off (Abandono)</h3>
+                    <div class="insight-box" style="border-color: #ff4444; background: rgba(255, 68, 68, 0.05);">
+                        <span style="color: #ff4444; font-weight: bold;">15%</span> dos utilizadores iniciaram, mas não concluíram o teste. Principal ponto de saída: Pergunta 12.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela Cruzada com Filtros Avançados -->
+            <div class="table-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+                    <h3>Mapeamento de Perfis por Cargo</h3>
+                    <div class="filters-bar">
+                        <select id="filter-type" class="gold-select">
+                            <option value="">Todos os Eneatipos</option>
+                            <option value="Tipo 2">Tipo 2 (Ajudante)</option>
+                            <option value="Tipo 3">Tipo 3 (Realizador)</option>
+                            <option value="Tipo 5">Tipo 5 (Investigador)</option>
+                            <option value="Tipo 8">Tipo 8 (Desafiador)</option>
+                            <option value="Tipo 9">Tipo 9 (Pacificador)</option>
+                        </select>
+                        <select id="filter-role" class="gold-select">
+                            <option value="">Todos os Setores</option>
+                            <option value="Liderança">Liderança</option>
+                            <option value="Operação">Operação</option>
+                        </select>
+                    </div>
+                </div>
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Cargo/Função</th>
+                            <th>Eneatipo Principal</th>
+                            <th>Asa Predominante</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Preenchido via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
