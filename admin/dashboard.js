@@ -176,4 +176,4 @@ document.getElementById('btn-clean-ui').addEventListener('click', function() {
     const charts = document.querySelector('.charts-grid');
     charts.classList.toggle('hidden');
     this.textContent = charts.classList.contains('hidden') ? 'Sair do Modo Foco' : 'Modo Foco';
-});
+}); 
