@@ -768,3 +768,11 @@ function baixarEEntrar() {
 }
 
 function updateElement(id, text) { const el = document.getElementById(id); if (el) el.innerHTML = text; }
+
+// --- Atalho Secreto para o Dashboard (Ctrl + Shift + A) ---
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.shiftKey && (event.key === 'A' || event.key === 'a')) {
+        event.preventDefault(); // Evita qualquer comportamento padrão do navegador
+        window.location.href = '/admin'; // Redireciona para a pasta do painel
+    }
+});
